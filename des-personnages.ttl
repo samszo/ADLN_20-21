@@ -1,0 +1,45 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix des: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocabDes#> .
+
+<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocabDes#> a owl:Ontology ;
+	dcterms:title "Digital Creation Workshop - Dessetrousse" .
+	
+	des:Character a rdfs:Class ;
+		rdfs:label "Personnage" ;
+		rdfs: domain o:ressource .
+		
+	des: nom a rdfs:Property ;
+		rdfs:label "nom" ;
+		rdfs: domain o:ressource .
+		
+	des: nom a rdfs:Property ;
+		rdfs:label "nature" ;
+		rdfs: domain o:ressource .
+		
+	des: nom a rdfs:Property ;
+		rdfs:label "localisation" ;
+		rdfs: domain o:ressource .
+
+	des: nom a rdfs:Property ;
+		rdfs:label "aLesBijoux" ;
+		rdfs: domain o:ressource .
+
+	des: nom a rdfs:Property ;
+		rdfs:label "enVie" ;
+		rdfs: domain o:ressource .
+		
+	des: nom a rdfs:Property ;
+		rdfs:label "malade" ;
+		rdfs: domain o:ressource .
+
+	des: nom a rdfs:Property ;
+		rdfs:label "niveauMaladie" ;
+		rdfs: domain o:ressource .
+
+	des: nom a rdfs:Property ;
+		rdfs:label "cardiaque" ;
+		rdfs: domain o:ressource .
