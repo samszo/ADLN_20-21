@@ -1,0 +1,18 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcw3: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab3#> .
+
+
+<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab3#> a owl:Ontology ;
+    dcterms:title "Digital Creation Workshop - Group 3" .
+
+dcw1:Saison a rdfs:Class ;
+    rdfs:label "Saison" ;
+    rdfs:domain o:Resource .
+
+dcw1:name a rdf:Property ;
+    rdfs:label "name" ;
+    rdfs:domain o:Resource .

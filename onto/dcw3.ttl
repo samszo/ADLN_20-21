@@ -1,0 +1,32 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcw2: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab2#> .
+
+
+<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab2#> a owl:Ontology ;
+    dcterms:title "Digital Creation Workshop - Group 2" .
+
+dcw3:Saison a rdfs:Class ;
+    rdfs:label "Saison" ;
+    rdfs:domain o:Resource .
+
+dcw3:name a rdf:Property ;
+    rdfs:label "name" ;
+    rdfs:domain o:Resource .
+
+dcw3:Appearance a rdfs:Class ;
+    rdfs:label "Appearance" ;
+    rdfs:domain o:Resource .
+
+dcw3:of_character a rdf:Property ;
+    rdfs:label "of character" ;
+    rdfs:domain o:Resource .
+
+dcw3:for_saison a rdf:Property ;
+    rdfs:label "for saison" ;
+    rdfs:domain o:Resource .
+
+
