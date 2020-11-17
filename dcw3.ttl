@@ -29,7 +29,7 @@ dcw3:Appearance a rdfs:Class ;
     rdfs:label "Appearance" ;
     rdfs:domain o:Resource .
 
-dcw3:name a rdf:Property ;
+dcw3:dead a rdf:Property ;
     rdfs:label "dead" ;
     rdfs:domain o:Resource .
 
