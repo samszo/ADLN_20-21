@@ -13,6 +13,36 @@ dcw3:Saison a rdfs:Class ;
     rdfs:label "Saison" ;
     rdfs:domain o:Resource .
 
-dcw3:name a rdf:Property ;
-    rdfs:label "name" ;
+dcw3:Possible_events a rdfs:Class ;
+    rdfs:label "Possible_events" ;
     rdfs:domain o:Resource .
+
+dcw3:Character a rdfs:Class ;
+    rdfs:label "Character" ;
+    rdfs:domain o:Resource .
+
+dcw3:Element a rdfs:Class ;
+    rdfs:label "Element" ;
+    rdfs:domain o:Resource .
+
+dcw3:Appearance a rdfs:Class ;
+    rdfs:label "Appearance" ;
+    rdfs:domain o:Resource .
+
+dcw3:name a rdf:Property ;
+    rdfs:label "dead" ;
+    rdfs:domain o:Resource .
+
+dcw3:alive a rdf:Property ;
+    rdfs:label "alive" ;
+    rdfs:domain o:Resource .
+
+dcw3:media a rdf:Property ;
+    rdfs:label "media" ;
+    rdfs:domain o:Resource .
+
+dcw3:description a rdf:Property ;
+    rdfs:label "description" ;
+    rdfs:domain o:Resource .
+
+
