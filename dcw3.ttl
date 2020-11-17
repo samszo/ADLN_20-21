@@ -9,40 +9,166 @@
 <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab3#> a owl:Ontology ;
     dcterms:title "Digital Creation Workshop - Group 3" .
 
-dcw3:Saison a rdfs:Class ;
-    rdfs:label "Saison" ;
+dcw3:Predator a rdfs:Class ;
+    rdfs:label "Predator" ;
     rdfs:domain o:Resource .
 
-dcw3:Possible_events a rdfs:Class ;
-    rdfs:label "Possible_events" ;
+dcw3:IDP_C a rdf:Property ;
+    rdfs:label "IDP_C" ;
+    rdfs:domain o:Resource .
+
+dcw3:Prey a rdf:Property ;
+    rdfs:label "Prey" ;
+    rdfs:domain o:Resource .
+
+dcw3:Location a rdfs:Class ;
+    rdfs:label "Location" ;
+    rdfs:domain o:Resource .
+
+dcw3:ID-L a rdf:Property ;
+    rdfs:label "ID-L" ;
     rdfs:domain o:Resource .
 
 dcw3:Character a rdfs:Class ;
     rdfs:label "Character" ;
     rdfs:domain o:Resource .
 
-dcw3:Element a rdfs:Class ;
-    rdfs:label "Element" ;
+dcw3:ID_C a rdf:Property ;
+    rdfs:label "ID_C" ;
+    rdfs:domain o:Resource .
+
+dcw3:Alive a rdf:Property ;
+    rdfs:label "Alive" ;
+    rdfs:domain o:Resource .
+
+dcw3: Wound a rdf:Property ;
+    rdfs:label "Wound" ;
+    rdfs:domain o:Resource .
+
+dcw3:KfC_L a rdf:Property ;
+    rdfs:label "KfC_L" ;
+    rdfs:domain o:Resource .
+
+dcw3:Characteristic a rdfs:Class ;
+    rdfs:label "Characteristic" ;
+    rdfs:domain o:Resource .
+
+dcw3:ID_CH a rdf:Property ;
+    rdfs:label "ID_CH" ;
+    rdfs:domain o:Resource .
+
+dcw3:KfCH_L a rdf:Property ;
+    rdfs:label "KfCH_L" ;
+    rdfs:domain o:Resource .
+
+dcw3:KfCH_S a rdf:Property ;
+    rdfs:label "KfCH_S" ;
+    rdfs:domain o:Resource .
+
+dcw3:Value a rdf:Property ;
+    rdfs:label "Value" ;
+    rdfs:domain o:Resource .
+
+dcw3:Season a rdfs:Class ;
+    rdfs:label "Season" ;
+    rdfs:domain o:Resource .
+
+dcw3:ID_S a rdf:Property ;
+    rdfs:label "ID_S" ;
     rdfs:domain o:Resource .
 
 dcw3:Appearance a rdfs:Class ;
     rdfs:label "Appearance" ;
     rdfs:domain o:Resource .
 
-dcw3:dead a rdf:Property ;
-    rdfs:label "dead" ;
+dcw3:ID_A a rdf:Property ;
+    rdfs:label "ID_A" ;
     rdfs:domain o:Resource .
 
-dcw3:alive a rdf:Property ;
-    rdfs:label "alive" ;
+dcw3:KfA_S a rdf:Property ;
+    rdfs:label "KfA_S" ;
     rdfs:domain o:Resource .
 
-dcw3:media a rdf:Property ;
-    rdfs:label "media" ;
+dcw3:KfA_C a rdf:Property ;
+    rdfs:label "KfA_C" ;
     rdfs:domain o:Resource .
 
-dcw3:description a rdf:Property ;
-    rdfs:label "description" ;
+dcw3:Value a rdf:Property ;
+    rdfs:label "Value" ;
     rdfs:domain o:Resource .
+
+dcw3:Information a rdfs:Class ;
+    rdfs:label "Information" ;
+    rdfs:domain o:Resource .
+
+dcw3:ID_I a rdf:Property ;
+    rdfs:label "ID_I" ;
+    rdfs:domain o:Resource .
+
+dcw3:Concern_entity a rdf:Property ;
+    rdfs:label "Concern_entity" ;
+    rdfs:domain o:Resource .
+
+dcw3:Concern_item a rdf:Property ;
+    rdfs:label "Concern_item" ;
+    rdfs:domain o:Resource .
+
+dcw3:Subject a rdf:Property ;
+    rdfs:label "Subject" ;
+    rdfs:domain o:Resource .
+
+dcw3:Media a rdfs:Class ;
+    rdfs:label "Media" ;
+    rdfs:domain o:Resource .
+
+dcw3:ID_M a rdf:Property ;
+    rdfs:label "ID_M" ;
+    rdfs:domain o:Resource .
+
+dcw3:KfM_I a rdf:Property ;
+    rdfs:label "KfM_I" ;
+    rdfs:domain o:Resource .
+
+dcw3:Value a rdf:Property ;
+    rdfs:label "Vallue" ;
+    rdfs:domain o:Resource .
+
+dcw3:Used a rdf:Property ;
+    rdfs:label "Used" ;
+    rdfs:domain o:Resource .
+
+dcw3:Event a rdfs:Class ;
+    rdfs:label "Event" ;
+    rdfs:domain o:Resource .
+
+dcw3:ID-E a rdf:Property ;
+    rdfs:label "ID-E" ;
+    rdfs:domain o:Resource .
+
+
+dcw3:Name a rdf:Property ;
+    rdfs:label "Name" ;
+    rdfs:domain o:Resource .
+
+dcw3:Heuristics a rdf:Property ;
+    rdfs:label "Heuristics" ;
+    rdfs:domain o:Resource .
+
+dcw3:Class a rdf:Property ;
+    rdfs:label "Class" ;
+    rdfs:domain o:Resource .
+
+dcw3:Function a rdf:Property ;
+    rdfs:label "Function" ;
+    rdfs:domain o:Resource .
+
+dcw3:Requirements a rdf:Property ;
+    rdfs:label "Requirements" ;
+    rdfs:domain o:Resource .
+
+dcw3:Final_state a rdf:Property ;
+    rdfs:label "Final_state" ;
+    rdfs:domain o:Resource .
+
 
 
