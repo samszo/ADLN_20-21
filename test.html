@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ATELIER DISPOSITIFS LITTÉRAIRES NUMÉRIQUES : tests</title>
+        <meta name="description" content="ATELIER DISPOSITIFS LITTÉRAIRES NUMÉRIQUES">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://d3js.org/d3.v5.min.js"></script>    
+        <script src="asset/js/adln.js"></script>    
+    </head>
+    <body>
+
+                    
+    </body>
+    <script>
+        let oADLN = new adln({
+            apiUrl:"https://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/omk/api/"
+            ,waitUrl:"asset/svg/wait-pacman.svg"
+        });
+        oADLN.showData(15);
+    </script>
+</html>

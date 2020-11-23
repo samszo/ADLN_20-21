@@ -1,0 +1,23 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50%" cy="50%" r="25%" 
+  stroke="yellow"
+  stroke-width="50%"
+  fill="none"
+  >
+    <animate 
+    attributeName="stroke-dasharray"
+    from="157,100"
+    to="126,100" 
+    dur="1s"
+    repeatCount="indefinite"
+     />
+    <animate 
+    attributeName="stroke-dashoffset"
+    from="0"
+    to="-15" 
+    dur="1s"
+    repeatCount="indefinite"
+     />
+
+  </circle>
+</svg>

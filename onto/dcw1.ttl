@@ -3,16 +3,92 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix o: <http://omeka.org/s/vocabs/o#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix dcw3: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab3#> .
+@prefix dcw1: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab1#> .
 
 
-<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab3#> a owl:Ontology ;
-    dcterms:title "Digital Creation Workshop - Group 3" .
+<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocab1#> a owl:Ontology ;
+    dcterms:title "Digital Creation Workshop - Group 1" .
 
-dcw1:Saison a rdfs:Class ;
-    rdfs:label "Saison" ;
+dcw1:Element a rdfs:Class ;
+    rdfs:label "Element" ;
     rdfs:domain o:Resource .
 
-dcw1:name a rdf:Property ;
-    rdfs:label "name" ;
+dcw1:Appearance a rdfs:Class ;
+    rdfs:label "Appearance" ;
+    rdfs:domain o:Resource .
+
+dcw1:Fragment a rdfs:Class ;
+    rdfs:label "Fragment" ;
+    rdfs:domain o:Resource .
+
+dcw1:Class a rdfs:Class ;
+    rdfs:label "Class" ;
+    rdfs:domain o:Resource .
+
+dcw1:Letter a rdfs:Class ;
+    rdfs:label "Letter" ;
+    rdfs:domain o:Resource .
+
+dcw1:ID-E a rdf:Property ;
+    rdfs:label "ID-E" ;
+    rdfs:domain o:Resource .
+
+dcw1:selectable a rdf:Property ;
+    rdfs:label "selectable" ;
+    rdfs:domain o:Resource .
+
+dcw1:selector a rdf:Property ;
+    rdfs:label "selector" ;
+    rdfs:domain o:Resource .
+
+dcw1: selectable a rdf:Property ;
+    rdfs:label "selectable" ;
+    rdfs:domain o:Resource .
+
+dcw1:selected a rdf:Property ;
+    rdfs:label "selected" ;
+    rdfs:domain o:Resource .
+
+dcw1:kfA_E a rdf:Property ;
+    rdfs:label "kfA_E" ;
+    rdfs:domain o:Resource .
+
+dcw1:kfA_F a rdf:Property ;
+    rdfs:label "kfA_C" ;
+    rdfs:domain o:Resource .
+
+dcw1:visible a rdf:Property ;
+    rdfs:label "visible" ;
+    rdfs:domain o:Resource .
+
+dcw1:media a rdf:Property ;
+    rdfs:label "media" ;
+    rdfs:domain o:Resource .
+
+dcw1:description a rdf:Property ;
+    rdfs:label "description" ;
+    rdfs:domain o:Resource .
+
+dcw1:ID-F a rdf:Property ;
+    rdfs:label "ID-F" ;
+    rdfs:domain o:Resource .
+
+dcw1:kfF_L a rdf:Property ;
+    rdfs:label "kfF_L" ;
+    rdfs:domain o:Resource .
+
+dcw1:used a rdf:Property ;
+    rdfs:label "used" ;
+    rdfs:domain o:Resource .
+
+dcw1:ID-C a rdf:Property ;
+    rdfs:label "ID-C" ;
+    rdfs:domain o:Resource .
+
+dcw1:ID-L a rdf:Property ;
+    rdfs:label "ID-L" ;
+    rdfs:domain o:Resource .
+
+dcw1:kfL_C a rdf:Property ;
+    rdfs:label "kfL_C" ;
     rdfs:domain o:Resource .

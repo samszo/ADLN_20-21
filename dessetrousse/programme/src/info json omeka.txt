@@ -1,0 +1,2 @@
+pour récupérer un resource template, l'ouvrir en cliquant sur son nom et faire un export.
+L'export produit un json
