@@ -41,6 +41,24 @@ class adln {
             });
         }
 
+        this.getItems = function (idVocab) {
+            verifInit();            
+            me.init(idVocab, function(){
+                let rs = [];
+                items.forEach(i=>{
+                    rs.push(getTypeVals(i));
+                })
+                rs = rs.map(d=>{
+                    let r;
+                    d.forEach(p=>{
+                        if(p.p)r[p.p]=p.v;
+                        else r[p.k]=p.v
+                    });
+                    return r;
+                });
+                return rs;
+            });            
+        }
 
         this.init = function (idVocab, endFct) {
             showWait();
@@ -212,7 +230,7 @@ class adln {
                 lbl += ' ('+o['o:id']+')';
                 vs = {t:t,k:p,v:lbl};
             }else if(v['@value']){
-                vs = {t:t,k:p,v:v['@property_label']};
+                vs = {t:t,k:p,v:v['@value'],p:v['property_label']};
             }else   
                 vs = {t:t,k:p,v:v};
             return vs;

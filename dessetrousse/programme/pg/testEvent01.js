@@ -5,176 +5,273 @@ var lieuxPossibles = [{nomTable:"lieuxPossibles"}];
 var Monde = [Personnage,Lieu,Communication,lieuxPossibles];
 var resultat;
 
-var Event = [
-	{
-		nomE:"se déplacer en un lieu", // optionnel
-		function:"deplacer",
-		nbParameters:2, //optionnel
-		type:"elementary",
-		requirements:[
-			{
-			 item:{table:Personnage, prop:"nom",valeur:{para:1}},
-			 conditions:[				
-				{prop:"kfP_L",type:"!=",valeur:{para:2}},
-				{prop:"en vie",type:"=",valeur:true},
-			 ]
-			},
-			{
-			 item:{table:Communication, prop:"kfC_L1",valeur:{item:0,prop:"kfP_L"}},
-			 conditions:[
-				{prop:"kfC_L2", type:"a",valeur:{para:2}}
-			 ]
-			},
-			{item:{table:lieuxPossibles,prop:"kflp_P",valeur:{para:1}},
-			 conditions:[				
-				{prop:"kflp_L",type:"a",valeur:{para:2}}
-			 ]				
-			}
-		],
-		finalStates:[
-			{
-			 item:{table:Personnage, prop:"nom",valeur:{para:1}},
-			 valeurs: [
-				{prop:"kfP_L",type:"=",valeur:{para:2}}
-			 ]
-			}
-		]
-	},
-	{
-		nomE:"prendre les bijoux",
-		function:"prendre",
-		nbParameters:1,
-		type:"elementary",
-		requirements:[
-			{
-				item:{table:Personnage, prop:"a les bijoux",valeur:true},
-				conditions:[]
-			},
-			{
-				item:{table:Personnage, prop:"nom", valeur:{para:1}},
-				conditions: [
-				{prop:"voleur", type:"!=",valeur:{item:0,prop:"voleur"}},
-				{prop:"kfP_L", type:"=", valeur:{item:0, prop:"kfP_L"}},
-				{prop:"a les bijoux", type:"=", valeur: false},
-				{prop:"en vie", type:"=", valeur:true}
+var Event = [{
+		nomE: "se déplacer en un lieu", // optionnel
+		function: "deplacer",
+		nbParameters: 2, //optionnel
+		type: "elementary",
+		requirements: [{
+				item: {
+					table: Personnage,
+					prop: "nom",
+					valeur: {
+						para: 1
+					}
+				},
+				conditions: [{
+						prop: "kfP_L",
+						type: "!=",
+						valeur: {
+							para: 2
+						}
+					},
+					{
+						prop: "en vie",
+						type: "=",
+						valeur: true
+					},
 				]
 			},
 			{
-				item:{table:Lieu, prop:"bijoux_présents", valeur:true},
-				conditions: [
-				{prop:"nomL", type: "=", valeur:{item:0,prop:"kfP_L"}}
-				]
+				item: {
+					table: Communication,
+					prop: "kfC_L1",
+					valeur: {
+						item: 0,
+						prop: "kfP_L"
+					}
+				},
+				conditions: [{
+					prop: "kfC_L2",
+					type: "a",
+					valeur: {
+						para: 2
+					}
+				}]
+			},
+			{
+				item: {
+					table: lieuxPossibles,
+					prop: "kflp_P",
+					valeur: {
+						para: 1
+					}
+				},
+				conditions: [{
+					prop: "kflp_L",
+					type: "a",
+					valeur: {
+						para: 2
+					}
+				}]
 			}
 		],
-		finalStates:[
+		finalStates: [{
+			item: {
+				table: Personnage,
+				prop: "nom",
+				valeur: {
+					para: 1
+				}
+			},
+			valeurs: [{
+				prop: "kfP_L",
+				type: "=",
+				valeur: {
+					para: 2
+				}
+			}]
+		}]
+	},
+	{
+		nomE: "prendre les bijoux",
+		function: "prendre",
+		nbParameters: 1,
+		type: "elementary",
+		requirements: [{
+				item: {
+					table: Personnage,
+					prop: "a les bijoux",
+					valeur: true
+				},
+				conditions: []
+			},
 			{
-				item:{table:Personnage, prop:"nom", valeur:{para:1}},
-				valeurs:[
-					{prop:"a les bijoux", type:"=", valeur:true}
+				item: {
+					table: Personnage,
+					prop: "nom",
+					valeur: {
+						para: 1
+					}
+				},
+				conditions: [{
+						prop: "voleur",
+						type: "!=",
+						valeur: {
+							item: 0,
+							prop: "voleur"
+						}
+					},
+					{
+						prop: "kfP_L",
+						type: "=",
+						valeur: {
+							item: 0,
+							prop: "kfP_L"
+						}
+					},
+					{
+						prop: "a les bijoux",
+						type: "=",
+						valeur: false
+					},
+					{
+						prop: "en vie",
+						type: "=",
+						valeur: true
+					}
 				]
 			},
 			{
-				item: {table:Personnage, prop:"nom", valeur:{item:0,prop:"nom"}},
-				valeurs:[
-					{prop:"a les bijoux", type:"=", valeur: false}
-				]
-			}
-		]
-	},
-	{
-		nomE:"mourir",
-		function:"mourir",
-		nbpParameters:1,
-		type:"elementary",
-		requirements:[
-			{
-			 item:{table:Personnage, prop:"nom",valeur:{para:1}},
-			 conditions:[				
-				{prop:"en vie",type:"=",valeur:true}
-			 ]
+				item: {
+					table: Lieu,
+					prop: "bijoux_présents",
+					valeur: true
+				},
+				conditions: [{
+					prop: "nomL",
+					type: "=",
+					valeur: {
+						item: 0,
+						prop: "kfP_L"
+					}
+				}]
 			}
 		],
-		finalStates:[
-			{
-			 item:{table:Personnage,prop:"nom",valeur:{para:1}}, 
-			 valeurs:[
-				{prop:"en vie",type:"=",valeur:false}
-			 ]
+		finalStates: [{
+				item: {
+					table: Personnage,
+					prop: "nom",
+					valeur: {
+						para: 1
+					}
+				},
+				valeurs: [{
+					prop: "a les bijoux",
+					type: "=",
+					valeur: true
+				}]
 			},
+			{
+				item: {
+					table: Personnage,
+					prop: "nom",
+					valeur: {
+						item: 0,
+						prop: "nom"
+					}
+				},
+				valeurs: [{
+					prop: "a les bijoux",
+					type: "=",
+					valeur: false
+				}]
+			}
 		]
 	},
 	{
-		nomE:"aggraver la maladie",
-		function:"",
-		parameters:[],
-		type:"",
-		requirements:[
-		],
-		finalState:[
-		]
+		nomE: "mourir",
+		function: "mourir",
+		nbpParameters: 1,
+		type: "elementary",
+		requirements: [{
+			item: {
+				table: Personnage,
+				prop: "nom",
+				valeur: {
+					para: 1
+				}
+			},
+			conditions: [{
+				prop: "en vie",
+				type: "=",
+				valeur: true
+			}]
+		}],
+		finalStates: [{
+			item: {
+				table: Personnage,
+				prop: "nom",
+				valeur: {
+					para: 1
+				}
+			},
+			valeurs: [{
+				prop: "en vie",
+				type: "=",
+				valeur: false
+			}]
+		}, ]
 	},
 	{
-		nomE:"",
-		function:"",
-		parameters:[],
-		type:"",
-		requirements:[
-		],
-		finalState:[
-		]
+		nomE: "aggraver la maladie",
+		function: "",
+		parameters: [],
+		type: "",
+		requirements: [],
+		finalState: []
 	},
 	{
-		nomE:"",
-		function:"",
-		parameters:[],
-		type:"",
-		requirements:[
-		],
-		finalState:[
-		]
+		nomE: "",
+		function: "",
+		parameters: [],
+		type: "",
+		requirements: [],
+		finalState: []
 	},
 	{
-		nomE:"",
-		function:"",
-		parameters:[],
-		type:"",
-		requirements:[
-		],
-		finalState:[
-		]
+		nomE: "",
+		function: "",
+		parameters: [],
+		type: "",
+		requirements: [],
+		finalState: []
 	},
 	{
-		nomE:"",
-		function:"",
-		parameters:[],
-		type:"",
-		requirements:[
-		],
-		finalState:[
-		]
+		nomE: "",
+		function: "",
+		parameters: [],
+		type: "",
+		requirements: [],
+		finalState: []
 	},
 	{
-		nomE:"",
-		function:"",
-		parameters:[],
-		type:"",
-		requirements:[
-		],
-		finalState:[
-		]
+		nomE: "",
+		function: "",
+		parameters: [],
+		type: "",
+		requirements: [],
+		finalState: []
 	},
 	{
-		nomE:"test",
-		function:"test",
-		parameters:["A"],
-		type:"",
-		requirements:[
-			
+		nomE: "",
+		function: "",
+		parameters: [],
+		type: "",
+		requirements: [],
+		finalState: []
+	},
+	{
+		nomE: "test",
+		function: "test",
+		parameters: ["A"],
+		type: "",
+		requirements: [
+
 		],
-		finalState:[
-		]
+		finalState: []
 	}
-									
+
 ];
 
 
