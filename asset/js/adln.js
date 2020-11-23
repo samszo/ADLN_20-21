@@ -13,14 +13,39 @@ class adln {
             ,'o:Item':['@id','o:id','o:title','o:resource_class','properties']
         };
 
-        this.init = function (idVocab, endFct) {
-            showWait()
+        function verifInit(){
             if(!me.apiUrl){
                 throw "L'url de l'API n'est pas valide. Merci de le définir";
                 return;
-            }
+            }            
             if(me.apiUrl.substr(me.apiUrl.length-1,1)!='/')me.apiUrl+='/';
-            
+        }
+
+        this.getListeVocabulaire = function(idCont, fctEnd){
+            verifInit();    
+            d3.json(me.apiUrl+"vocabularies").then(function(vocabs) {
+                let contSlct = d3.select("#"+idCont);
+                contSlct.append('label').attr('for','slctVocabs').html('Choisir un vocabulaire :');
+                let slct = contSlct.append('select')
+                    .attr('id','slctVocabs')
+                    .attr('name','vocabs')                    
+                    .on('change',function(d){
+                        let id = this.options[this.selectedIndex].id;
+                        if(fctEnd)fctEnd(id);
+                    });
+                slct.selectAll('option').data(vocabs).enter().append('option')
+                    .attr('id',d=>{
+                        return d['o:id'];
+                    })
+                    .html(d=>d['o:label']);
+            });
+        }
+
+
+        this.init = function (idVocab, endFct) {
+            showWait();
+
+            verifInit();            
             
             me.idVocab = idVocab;
             if(!me.idVocab){
@@ -57,7 +82,7 @@ class adln {
         }
 
         this.showData = function (idVocab) {
-            this.init(idVocab,createTableData);
+            me.init(idVocab,createTableData);
         }
 
         function createTableData(){
