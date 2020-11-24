@@ -18,10 +18,12 @@
         let oADLN = new adln({
             cont:d3.select('#tableOmeka')
             , apiUrl:"https://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/omk/api/"
-            ,waitUrl:"asset/svg/wait-pacman.svg"
+            , waitUrl:"asset/svg/wait-pacman.svg"
         });
         oADLN.getListeVocabulaire('tools',oADLN.showData);
         //oADLN.showData(15);
-        //oADLN.getItems(15);
+        let rs = oADLN.getItems(15);
+        console.log(rs);
+
     </script>
 </html>

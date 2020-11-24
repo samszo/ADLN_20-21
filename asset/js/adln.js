@@ -41,27 +41,31 @@ class adln {
             });
         }
 
+          
         this.getItems = function (idVocab) {
-            verifInit();            
-            me.init(idVocab, function(){
-                let rs = [];
-                items.forEach(i=>{
-                    rs.push(getTypeVals(i));
-                })
-                rs = rs.map(d=>{
-                    let r;
-                    d.forEach(p=>{
-                        if(p.p)r[p.p]=p.v;
-                        else r[p.k]=p.v
-                    });
-                    return r;
+            me.init(idVocab);
+            let rs = [];
+            items.forEach(i=>{
+                rs.push(getTypeVals(i));
+            })
+            //met à plat les valeurs
+            rs = rs.map(d=>{
+                let r=[];
+                d.forEach(p=>{
+                    if(p.p)r[p.p]=p.v;
+                    else r[p.k]=p.v
                 });
-                return rs;
-            });            
+                return r;
+            });
+            //regroupe les valeurs par class 
+            rs = d3.nest()
+                .key(d=> d['o:resource_class'])
+                .entries(rs); 
+            return rs;
         }
 
-        this.init = function (idVocab, endFct) {
-            showWait();
+        this.init = function (idVocab) {
+            me.showWait();
 
             verifInit();            
             
@@ -71,40 +75,31 @@ class adln {
                 return;
             }
             
-            //charges les vocabulaires de la fiction
-            let jsonVocabs = [
-                d3.json(me.apiUrl+"vocabularies/"+me.idVocab)
-                , d3.json(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab)
-                , d3.json(me.apiUrl+"properties?vocabulary_id="+me.idVocab)
-            ];
-        
-            Promise.all(jsonVocabs).then(function(values) {
-                tables = [];
-                vocab = values[0];
-                classes = values[1];
-                properties = values[2];
-                //récupère les items
-                let jsonItems = [];
-                classes.forEach(d => {
-                    jsonItems.push(d3.json(me.apiUrl+"items?resource_class_id="+d['o:id']));
-                })
-                Promise.all(jsonItems).then(function(rs) {
-                    rs.forEach(rsItem=>{
-                        items = items.concat(rsItem);
-                    });
-                    hideWait();           
-                    if(endFct)endFct();
-                });
+            //charges les vocabulaires de la fiction en synchrone
+            tables = [];
+            vocab = getJsonSynchrone(me.apiUrl+"vocabularies/"+me.idVocab);
+            classes = getJsonSynchrone(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab);
+            properties = getJsonSynchrone(me.apiUrl+"properties?vocabulary_id="+me.idVocab);
+
+            //récupère les items
+            items = [];
+            classes.forEach(d => {
+                items = items.concat(getJsonSynchrone(me.apiUrl+"items?resource_class_id="+d['o:id']));
             })
-    
+           me.hideWait();               
         }
 
         this.showData = function (idVocab) {
-            me.init(idVocab,createTableData);
+            me.init(idVocab);
+            createTableData();
         }
 
         function createTableData(){
-            console.log(items);
+            //suprime les conteneurs obsolètes
+            me.cont.select('h1').remove();
+            me.cont.selectAll('table').remove();
+
+            //cration des tables
             me.cont.append('h1').html(vocab['o:label']);
             let htmlTable = me.cont.selectAll('table').data([
                 {'nom':'Tables','rs':classes}
@@ -216,16 +211,7 @@ class adln {
             let vs;
             if(!v)return {t:t,k:p,v:'-'};
             if(v['@id']){
-                if(!omekaQuery[v['@id']]){
-                    //récupère la valeur omeka
-                    var request = new XMLHttpRequest();
-                    request.open('GET', v['@id'], false);  // `false` makes the request synchronous
-                    request.send(null);                    
-                    if (request.status === 200) {
-                        omekaQuery[v['@id']]=JSON.parse(request.responseText);
-                    }                    
-                }
-                let o = omekaQuery[v['@id']];
+                let o = getJsonSynchrone(v['@id']);
                 let lbl = o['o:label'] ? o['o:label'] : o['o:title'];
                 lbl += ' ('+o['o:id']+')';
                 vs = {t:t,k:p,v:lbl};
@@ -259,11 +245,25 @@ class adln {
             });
         }
 
-        function showWait(){
+        this.showWait = function (){
             divWait.style('display','block');
         }
-        function hideWait(){
+        this.hideWait = function (){
             divWait.style('display','none');
+        }
+
+        function getJsonSynchrone(url){
+            let json;
+            if(omekaQuery[url])return omekaQuery[url];
+            var request = new XMLHttpRequest();
+            request.open('GET', url, false);  // `false` makes the request synchronous
+            request.send(null);                    
+            if (request.status === 200) {
+                omekaQuery[url]=JSON.parse(request.responseText);
+                return omekaQuery[url];
+            }else{
+                throw "Erreur dans la récupération des données : "+url;
+            }                    
         }
 
         //création du svg d'attente
