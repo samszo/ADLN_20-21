@@ -1,21 +1,23 @@
-structure des données pour le champ requirements :
+# structure des données pour les évènements
 
-explications :
+## structure des données pour le champ requirements :
+
+### explications :
 
 Chaque requirement ne concerne qu'une seule table du monde
-Chaque requirement est un objet javascript qui possède 2 propriétés : item et conditions. 
+Chaque requirement est un objet javascript qui possède 2 propriétés : _item_ et _conditions_. 
 
-La propriété item permet de repérer l'item considéré dans la table du monde à partir d'une valeur spécifique d'une de ses propriétés. Il s'agira en général de son identifiant (son nom par exemple). Cette propriété item est donnée sous la forme d'un objet javascript qui possède lui-même 3 propriétés : key, prop et valeur.
+La propriété __item__ permet de repérer l'item considéré dans la table du monde à partir d'une valeur spécifique d'une de ses propriétés. Il s'agira en général de son identifiant (son nom par exemple). Cette propriété item est donnée sous la forme d'un objet javascript qui possède lui-même 3 propriétés : _key_, _prop_ et _valeur_.
 
-La propriété key a pour valeur le nom de la table du monde à laquelle appartient l'item
-le propriété prop a pour valeur le nom de la propriété de l'item qu'on analyse (ce sera en général in ID)
-la propriété valeur a pour valeur la valeur cherchée de la propriété qui permettra de sélectionner l'item considéré
+La propriété _key_ a pour valeur le nom de la table du monde à laquelle appartient l'item
+le propriété _prop_ a pour valeur le nom de la propriété de l'item qu'on analyse (ce sera en général in ID)
+la propriété _valeur_ a pour valeur la valeur cherchée de la propriété qui permettra de sélectionner l'item considéré
 
 
-la propriété conditions est une liste (un Array javascript) qui contient toutes les conditions que doit remplir l'item considéré pour que l'évènement puisse se produire.
-Chaque condition est donnée sous la forme d'un objet javascript qui comporte 3 propriétés : prop, type et valeur. Cela signifie que la propriété prop de l'item doit avoir la valeur demandée en fonction du type d'opération. Par exemple, si type vaut "=", il faudra que la propriété ait la valeur indiquée. Si le type est ">", il faudra que la valeur de la propriété soit supérieure à la valeur de la condition. Si la valeur de la propriété est une liste, le type "a" vérifie que la valeur de la condition se trouve dans la liste. 
+la propriété __conditions__ est une liste (un Array javascript) qui contient toutes les conditions que doit remplir l'item considéré pour que l'évènement puisse se produire.
+Chaque condition est donnée sous la forme d'un objet javascript qui comporte 3 propriétés : _prop_, _type_ et _valeur_. Cela signifie que la propriété _prop_ de l'item doit avoir la valeur demandée en fonction du type d'opération. Par exemple, si _type_ vaut "=", il faudra que la propriété ait la valeur indiquée. Si le type est ">", il faudra que la valeur de la propriété soit supérieure à la valeur de la condition. Si la valeur de la propriété est une liste, le type "a" vérifie que la valeur de la condition se trouve dans la liste. 
 
-la propriété type ne peut avoir que les valeurs suivantes : "=", ">", ">=", "<", "<=", "a", "!=" ("!=" signifie "différent de")
+la propriété _type_ ne peut avoir que les valeurs suivantes : "=", ">", ">=", "<", "<=", "a", "!=" ("!=" signifie "différent de")
 
 Il est fréquent que la valeur à considérer, dans l'item ou la condition, n'est pas connue au moment de la description de l'évènement. La propriété valeur de l'item ou de la condition sera alors également un objet Javascript. Deux cas de figure peuvent se présenter :
 1) la valeur à considérer peut être celle d'un paramètre passé à l'évènement au moment où il doit avoir lieu. On note cette situation sous la forme {para:x} (sans guillemets) indiquant que la valeur qui sera utilisée sera celle du paramètre n°x fourni à l'évènement (par exemple pour un évènement mute(A) dont la fonction est mute et à qui on doit fournir le paramètre A au moment de l'exécution, l'indication {para:1} fera référence à A)
@@ -38,7 +40,8 @@ Dans cette notation :
 * derrière type, remplacer "toto" par l'une des opérations suivantes : "=", ">", ">=", "<", "<=", "a", "!="
 
 
-les finalStates
+## les finalStates.
+
 Leur structure est très voisine de celle des requirements, elles utilisent les mêmes notations et on remplit également un final state par ligne, le final state correspondant aux modifications à apporter à une table spécifique du monde. La seule différence avec la notation des requirements, est que le terme "conditions" est remplacé par le terme "valeurs". Un finalState ne modifiant qu'une seule valeur d'un item s'écrira donc :
 
 {item: {key:"toto", prop:"toto", valeur:"toto"}}, valeurs:[{prop:"toto", type:"toto", valeur: "toto"}]}
