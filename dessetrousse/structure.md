@@ -21,10 +21,10 @@ la propriété _type_ ne peut avoir que les valeurs suivantes : "=", ">", ">=", 
 
 Il est fréquent que la valeur à considérer, dans l'item ou la condition, n'est pas connue au moment de la description de l'évènement. La propriété valeur de l'item ou de la condition sera alors également un objet Javascript. Deux cas de figure peuvent se présenter :
 1) la valeur à considérer peut être celle d'un paramètre passé à l'évènement au moment où il doit avoir lieu. On note cette situation sous la forme __{para:x}__ (sans guillemets) indiquant que la valeur qui sera utilisée sera celle du paramètre n°x fourni à l'évènement (par exemple pour un évènement mute(A) dont la fonction est mute et à qui on doit fournir le paramètre A au moment de l'exécution, l'indication {para:1} fera référence à A)
-2) La valeur à considérer est celle d'un autre item que celui considéré dans le requirement. on utilisera la notation {item:x,prop:"toto"} où x est le numéro d'un item requirement déjà indiqué dans l'évènement et "toto" la propriété testée dans cet item. Attention, la numérotation débute à 0 : l'item concerné par le 1° requirement
+2) La valeur à considérer est celle d'un autre item que celui considéré dans le requirement. on utilisera la notation __{item:x,prop:"toto"}__ où x est le numéro d'un item requirement déjà indiqué dans l'évènement et "toto" la propriété testée dans cet item. Attention, la numérotation débute à 0 : l'item concerné par le 1° requirement
 Il faut bien faire attention à l'ordre dans lequel on introduit les items dans le champ omeka requirements car la notation fait référence à des items déjà introduits, pas à ceux qui suivent sur les lignes en dessous. 
 
-{item:{key:"toto",prop:"toto",valeur:"toto"}, conditions:[{prop:"toto",type:"toto",valeur:"toto"}]}
+__{item:{key:"toto",prop:"toto",valeur:"toto"}, conditions:[{prop:"toto",type:"toto",valeur:"toto"}]}__
 
 Si votre requirement a plusieurs conditions, mettre autant de {prop, type, valeur} que nécessaire en les séparant par une virgule. Ex avec 2 conditions :
 {item:{key:"toto",prop:"toto",valeur:"toto"}, conditions:[{prop:"toto",type:"toto",valeur:"toto"}, {prop:"toto",type:"toto",valeur:"toto"}]}
@@ -44,7 +44,7 @@ Dans cette notation :
 
 Leur structure est très voisine de celle des requirements, elles utilisent les mêmes notations et on remplit également un final state par ligne, le final state correspondant aux modifications à apporter à une table spécifique du monde. La seule différence avec la notation des requirements, est que le terme "conditions" est remplacé par le terme "valeurs". Un finalState ne modifiant qu'une seule valeur d'un item s'écrira donc :
 
-{item: {key:"toto", prop:"toto", valeur:"toto"}}, valeurs:[{prop:"toto", type:"toto", valeur: "toto"}]}
+__{item: {key:"toto", prop:"toto", valeur:"toto"}}, valeurs:[{prop:"toto", type:"toto", valeur: "toto"}]}__
 
 La notation {item:x,prop:"toto"} fait ici référence au numéro de l'item du final state, pas à un requirement
 
