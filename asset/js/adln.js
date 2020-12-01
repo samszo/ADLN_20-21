@@ -241,11 +241,20 @@ class adln {
                     vs = {t:t,k:p,v:lbl};    
                 }
             }else if(v['@value']){
-                vs = {t:t,k:p,v:v['@value'],p:v['property_label']};
+                let val = v['@value'];
+                try {
+                    if(p=='gfg:requirements' || p=='gfg:finalStates')val=JSON.parse(val); 
+                } catch (err) {
+                    console.error(err);
+                    console.log('json mal formaté : '+val);
+                }finally {
+                    vs = {t:t,k:p,v:val,p:v['property_label']};
+                }                  
             }else   
                 vs = {t:t,k:p,v:v};
             return vs;
         }
+
 
         function fctExecute(p) {
             switch (p.data.fct) {
