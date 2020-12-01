@@ -139,7 +139,10 @@ class adln {
                         html='<h3>'+d.v+'</h3>';   
                         break;                
                     default:
-                        html = d.v
+                        if(typeof d.v == "object"){
+                            html = JSON.stringify(d.v);
+                        }else
+                            html = d.v;
                         break;
                 }
                 return html;
