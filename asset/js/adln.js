@@ -183,11 +183,15 @@ class adln {
             if(propsForOmekaType[t]){
                 propsForOmekaType[t].forEach(p=>{
                     if(p=='properties'){
-                        //récupère toutes les propriétés du vocabulaire
+                        /*récupère toutes les propriétés du vocabulaire
                         properties.forEach(prop=>{
                             vs = vs.concat(getVals(d, t, prop['o:term']));
                         })
-                        
+                        */
+                        //récupère toutes les propriétés
+                        for (const prop in d) {
+                            vs = vs.concat(getVals(d, t, prop));
+                        }                        
                     }else    
                         vs = vs.concat(getVals(d, t, p));
                 })            
@@ -207,14 +211,35 @@ class adln {
             return vs;
         }
 
+        function isItemSet(d){
+            let is =false;
+            if(Array.isArray(d['@type'])){
+                d['@type'].forEach(t=>{
+                    if(t=="o:ItemSet")is=true;
+                })
+            }else{
+                if(d['@type']=="o:ItemSet")is=true;
+            };                
+            return is;
+        }
+
         function getVal(d, t, p, v) {
             let vs;
             if(!v)return {t:t,k:p,v:'-'};
-            if(v['@id']){
+            if(v['@id'] && p!='o:owner'){
                 let o = getJsonSynchrone(v['@id']);
-                let lbl = o['o:label'] ? o['o:label'] : o['o:title'];
-                lbl += ' ('+o['o:id']+')';
-                vs = {t:t,k:p,v:lbl};
+                if(isItemSet(o)){
+                    //récupère les items de la collection
+                    let items = getJsonSynchrone(o['o:items']['@id']);
+                    let rs = items.map(i=>{
+                        return {'id':i['o:id'],'title':i['o:title']};
+                    })
+                    vs = {t:t,k:p,v:{'itemSet':o['o:title'],'items':rs}};
+                }else{
+                    let lbl = o['o:label'] ? o['o:label'] : o['o:title'];
+                    lbl += ' ('+o['o:id']+')';
+                    vs = {t:t,k:p,v:lbl};    
+                }
             }else if(v['@value']){
                 vs = {t:t,k:p,v:v['@value'],p:v['property_label']};
             }else   
