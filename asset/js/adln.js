@@ -234,10 +234,10 @@ class adln {
                     let rs = items.map(i=>{
                         return {'id':i['o:id'],'title':i['o:title']};
                     })
-                    vs = {t:t,k:p,v:{'itemSet':o['o:title'],'items':rs}};
+                    vs = {t:t,k:o['o:title'],v:rs};
                 }else{
                     let lbl = o['o:label'] ? o['o:label'] : o['o:title'];
-                    lbl += ' ('+o['o:id']+')';
+                    //lbl += ' ('+o['o:id']+')';
                     vs = {t:t,k:p,v:lbl};    
                 }
             }else if(v['@value']){
