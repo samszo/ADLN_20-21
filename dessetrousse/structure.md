@@ -72,3 +72,7 @@ Les champs requirements et finalStates des évènements de ce type se remplissen
 
 Chaque branche possible fait l'objet d'une ligne du champ "branches". Chaque branche est décrite par un objet qui comporte 2 prpriétés : _sequence_ et _proba_ La valeur de _proba_ est toujours 1. La valeur de _sequence_ est celle d'un type séquence
 
+Le moule d'une branche est donc (avec ici une séquence de 2 évènements
+
+__{sequence: [{fonction:"toto",arguments:["toto","toto"]}, {fonction:"toto",arguments:["toto","toto"], proba:1}__
+
