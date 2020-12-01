@@ -1,6 +1,6 @@
 # structure des données pour les évènements
 
-## structure des données pour le champ requirements :
+## requirements et final states
 
 ### explications :
 
@@ -40,11 +40,35 @@ Dans cette notation :
 * derrière type, remplacer "toto" par l'une des opérations suivantes : "=", ">", ">=", "<", "<=", "a", "!="
 
 
-## les finalStates.
+### les finalStates.
 
 Leur structure est très voisine de celle des requirements, elles utilisent les mêmes notations et on remplit également un final state par ligne, le final state correspondant aux modifications à apporter à une table spécifique du monde. La seule différence avec la notation des requirements, est que le terme "conditions" est remplacé par le terme "valeurs". Un finalState ne modifiant qu'une seule valeur d'un item s'écrira donc :
 
 __{item: {key:"toto", prop:"toto", valeur:"toto"}}, valeurs:[{prop:"toto", type:"toto", valeur: "toto"}]}__
 
 La notation {item:x,prop:"toto"} fait ici référence au numéro de l'item du final state, pas à un requirement
+
+
+## types séquence et choix
+
+### type séquence
+
+une séquence peut comporter des requirements de la séquence, qui sont des requirements supplémentaires qui doivent être appliqués au 1° évènement de la séquence, et des final states qui sont dfes final states supplémentaires du dernier évènement. On remplit normalement ces 2 champs. Il est possible que la séquence ne nécessite aucun de ces champs.
+
+Le champ tablesParameters contient la liste de tous les arguments nécessaires à toutes les fonctions de la séquence. Il a la forme :
+
+_["toto","toto"]_   où chaque "toto" a une valeur bien définie
+
+Le champ séquence comporte la liste des évènemùents à effectuer dans l'ordre indiqué. Elle est indiquée sur une seule ligne. Il est possible que la séquence ne comporte qu'un seul évènement, cela arrive lorsque la séquence est en fait un cas particulier d'un autre évènement (quel qu'en soit le type), en général lorsqu'un paramètre est prédéfini. Chaque évènement est repéré par un objet qui possède 2 propriétés : _fonction_, dont la valeur est la valeur de la function de l'évènement impliqué, et _arguments_ qui comporte la liste des arguments nécessaire à l'évènement impliqué. Le modèle général de ce champ est
+
+_[{fonction:"toto",arguments:["toto","toto"]}]_   Dans cette expression les "toto" des arguments sont, soit des valeurs bien définies, soit des expressions du type __{para:x}__ où x renvoie au xème argument du champ tablesParameters
+
+Si la s"quence comporte plusieurs évènements à la suite, son modèle sera le suivant, dans lequel chaque évènement est décrit par un {}, les objets étant sdéparés par une virgule
+
+_[{fonction:"toto",arguments:["toto","toto"]}, {fonction:"toto",arguments:["toto","toto"]}]_
+
+### type choix
+Les champs requirements et finalStates des évènements de ce type se remplissent de la même façon que pour le type séquence
+
+Chaque branche possible fait l'objet d'une ligne du champ "branches". Chaque branche est décrite par un objet qui comporte 2 prpriétés : _sequence_ et _proba_ La valeur de _proba_ est toujours 1. La valeur de _sequence_ est celle d'un type séquence
 
