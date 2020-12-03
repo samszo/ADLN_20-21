@@ -56,7 +56,7 @@ class adln {
                     let k = p.p ? p.p :p.k;
                     if(r[k]){
                         if(Array.isArray(r[k])){
-                            r[k].concat(pv);
+                            r[k].concat(p.v);
                         }else{
                             let oV = r[k];
                             if(oV!=p.v)r[k] = [oV,p.v];
@@ -256,7 +256,8 @@ class adln {
             }else if(v['@value']){
                 let val = v['@value'];
                 try {
-                    if(p=='gfg:requirements' || p=='gfg:finalStates')val=JSON.parse(val); 
+                    if(p=='gfg:requirements' || p=='gfg:finalStates' || p=='gfg:sequence' || p=='gfg:branchs')
+                        val=JSON.parse(val); 
                 } catch (err) {
                     console.error(err);
                     console.log('json mal formaté : '+val);
