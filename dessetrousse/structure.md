@@ -27,7 +27,7 @@ Il faut bien faire attention à l'ordre dans lequel on introduit les items dans 
 __{"item":{"key":"toto","prop":"toto","valeur":"toto"}, "conditions":[{"prop":"toto","type":"toto","valeur":"toto"}]}__
 
 Si votre requirement a plusieurs conditions, mettre autant de {prop, type, valeur} que nécessaire en les séparant par une virgule. Ex avec 2 conditions :
-{"item":{"key":"toto","prop":"toto","valeur":"toto"}, "conditions":[{"prop":"toto","type":"toto","valeur":"toto"}, {"prop":"toto","type":"toto","valeur":"toto"}]}
+__{"item":{"key":"toto","prop":"toto","valeur":"toto"}, "conditions":[{"prop":"toto","type":"toto","valeur":"toto"}, {"prop":"toto","type":"toto","valeur":"toto"}]}__
 
 Dans cette notation : 
 * derrière "key", remplacer "toto" par le nom de la table du monde de l'item considéré (ex "Character")
@@ -72,7 +72,7 @@ Les champs requirements et finalStates des évènements de ce type se remplissen
 
 Chaque branche possible fait l'objet d'une ligne du champ "branches". Chaque branche est décrite par un objet qui comporte 2 prpriétés : _sequence_ et _proba_ La valeur de _proba_ est toujours 1. La valeur de _sequence_ est celle d'un type séquence
 
-Le moule d'une branche est donc (avec ici une séquence de 2 évènements
+Le moule d'une branche est donc, avec ici une séquence de 2 évènements :
 
-__{"sequence": [{"fonction":"toto","arguments":["toto","toto"]}, {"fonction":"toto","arguments":["toto","toto"], "proba":1}__
+__{"sequence": [{"fonction":"toto","arguments":["toto","toto"]}, {"fonction":"toto","arguments":["toto","toto"]}], "proba":1}__
 
