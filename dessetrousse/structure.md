@@ -40,6 +40,8 @@ Dans cette notation :
 	** {"item":x,"prop":"toto"}	(attention de bien remplacer x par un chiffre)
 * derrière type, remplacer "toto" par l'une des opérations suivantes : "=", ">", ">=", "<", "<=", "a", "!="
 
+Si l'évènement ne nécessite aucun requirement, mettre le symbole __[]__ dans le champ requirements
+
 
 ### les finalStates.
 
@@ -48,6 +50,8 @@ Leur structure est très voisine de celle des requirements, elles utilisent les 
 __{"item": {"key":"toto", "prop":"toto", "valeur":"toto"}, "valeurs":[{"prop":"toto", "type":"toto", "valeur": "toto"}]}__
 
 La notation {"item":x,"prop":"toto"} fait ici référence au numéro de l'item du final state, pas à un requirement
+
+Si l'évènement ne nécessite aucun final state (cela peut se produite pour les types séquence, pg ou choix), mettre le symbole __[]__ dans le champ requirements
 
 ## tablesParameters.
 
