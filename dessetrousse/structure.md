@@ -44,7 +44,7 @@ Dans cette notation :
 
 Leur structure est très voisine de celle des requirements, elles utilisent les mêmes notations et on remplit également un final state par ligne, le final state correspondant aux modifications à apporter à une table spécifique du monde. La seule différence avec la notation des requirements, est que le terme "conditions" est remplacé par le terme "valeurs". Un finalState ne modifiant qu'une seule valeur d'un item s'écrira donc :
 
-__{"item": {"key":"toto", "prop":"toto", "valeur":"toto"}}, "valeurs":[{"prop":"toto", "type":"toto", "valeur": "toto"}]}__
+__{"item": {"key":"toto", "prop":"toto", "valeur":"toto"}, "valeurs":[{"prop":"toto", "type":"toto", "valeur": "toto"}]}__
 
 La notation {"item":x,"prop":"toto"} fait ici référence au numéro de l'item du final state, pas à un requirement
 
