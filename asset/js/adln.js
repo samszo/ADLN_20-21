@@ -6,6 +6,7 @@ class adln {
         this.waitUrl = params.waitUrl ? params.waitUrl : false;
         this.data = params.data ? params.data : {}; 
         this.idVocab = 0;
+        this.scenes=[];
         var vocab, tables, classes, properties, items=[], omekaQuery=[],divWait
         , propsForOmekaType = {
             'o:ResourceClass':['@id','o:id','o:label','o:term']
@@ -52,8 +53,16 @@ class adln {
             rs = rs.map(d=>{
                 let r=[];
                 d.forEach(p=>{
-                    if(p.p)r[p.p]=p.v;
-                    else r[p.k]=p.v
+                    let k = p.p ? p.p :p.k;
+                    if(r[k]){
+                        if(Array.isArray(r[k])){
+                            r[k].concat(pv);
+                        }else{
+                            let oV = r[k];
+                            if(oV!=p.v)r[k] = [oV,p.v];
+                        } 
+                    }else
+                        r[k]=p.v
                 });
                 return r;
             });
@@ -231,8 +240,9 @@ class adln {
             if(!v)return {t:t,k:p,v:'-'};
             if(v['@id'] && p!='o:owner'){
                 let o = getJsonSynchrone(v['@id']);
-                if(isItemSet(o)){
-                    //récupère les items de la collection
+                //if(isItemSet(o)){
+                if(false){
+                        //récupère les items de la collection
                     let items = getJsonSynchrone(o['o:items']['@id']);
                     let rs = items.map(i=>{
                         return {'id':i['o:id'],'title':i['o:title']};
@@ -268,7 +278,7 @@ class adln {
             }            
         }   
 
-        function chargeSVG(url, idCont){
+        this.chargeSVG = function(url, idCont, nom, callback){
             d3.xml(url)
                 .then(data => {
                     d3.select("#"+idCont).node().append(data.documentElement);
@@ -279,6 +289,8 @@ class adln {
                         .attr('width',cont.offsetWidth)        
                         //.attr('viewBox','0 0 '+bb.width+' '+bb.height)
                         .attr('preserveAspectRatio','xMinYMin meet');
+                    me.scenes.push({'nom':nom,'svg':svg});
+                    if(callback)callback(svg);
             });
         }
 
@@ -306,7 +318,7 @@ class adln {
         //création du svg d'attente
         if(this.waitUrl){
             divWait = this.cont.append("div").attr('id','adln-svg-wait').style('display','none');
-            chargeSVG(this.waitUrl,'adln-svg-wait');    
+            me.chargeSVG(this.waitUrl,'adln-svg-wait','wait',null);    
         }
     }
 }
