@@ -51,7 +51,9 @@ La notation {"item":x,"prop":"toto"} fait ici référence au numéro de l'item d
 
 ## tablesParameters.
 
-Le champ tablesParameters contient la liste de tous les arguments nécessaires Il suffit de mettre le nom d'une table du monde (sans guillemet) par ligne omeka dans la liste. Les noms en question sont par exemple Character, Season... selon votre modèle théorique
+Le champ tablesParameters contient la liste de tous les arguments nécessaires Il suffit de mettre le nom d'une table du monde (sans guillemet) par ligne omeka dans la liste. Les noms en question sont par exemple Character, Season... selon votre modèle théorique.
+
+Le champ tablesParameters doit toujours contenir au moins 2 champs ligne omeka. Lorsque l'évènement n'a besoin que d'un seul paramètre, mettez le symbole __-__ (tiret du chiffre 6) sur la seconde ligne. S'il n'a besoin d'aucun paramètre, mettez ce symbole sur les 2 lignes
 
 ## types séquence et choix
 
