@@ -57,7 +57,7 @@ Si l'évènement ne nécessite aucun final state (cela peut se produite pour les
 
 Le champ tablesParameters contient la liste de tous les arguments nécessaires Il suffit de mettre le nom d'une table du monde (sans guillemet) par ligne omeka dans la liste. Les noms en question sont par exemple Character, Season... selon votre modèle théorique.
 
-Le champ tablesParameters doit toujours contenir au moins 2 champs ligne omeka. Lorsque l'évènement n'a besoin que d'un seul paramètre, mettez le symbole __-__ (tiret du chiffre 6) sur la seconde ligne. S'il n'a besoin d'aucun paramètre, mettez ce symbole sur les 2 lignes
+Le champ tablesParameters doit contenir au moins 2 champs ligne omeka lorsque l'évènement nécessite 1 ou plusieurs paramètres. Lorsque l'évènement n'a besoin que d'un seul paramètre, mettez le symbole __-__ (tiret du chiffre 6) sur la seconde ligne. Lorsque l'évènement n'a besoin d'aucun paramètre, mettez le symbole d'une liste vide __[]__ dans le champ tablesParameters
 
 ## types séquence et choix
 
