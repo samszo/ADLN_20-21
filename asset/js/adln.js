@@ -43,34 +43,39 @@ class adln {
         }
 
           
-        this.getItems = function (idVocab) {
-            me.init(idVocab);
-            let rs = [];
-            items.forEach(i=>{
-                rs.push(getTypeVals(i));
-            })
-            //met à plat les valeurs
-            rs = rs.map(d=>{
-                let r=[];
-                d.forEach(p=>{
-                    let k = p.p ? p.p :p.k;
-                    if(r[k]){
-                        if(Array.isArray(r[k])){
-                            r[k].concat(p.v);
-                        }else{
-                            let oV = r[k];
-                            if(oV!=p.v)r[k] = [oV,p.v];
-                        } 
-                    }else
-                        r[k]=p.v
+        this.getItems = function (idsVocab) {
+            let result = [];
+            idsVocab.forEach(idV =>{
+                me.init(idV);
+                let rs = [];
+                items.forEach(i=>{
+                    rs.push(getTypeVals(i));
+                })
+                //met à plat les valeurs
+                rs = rs.map(d=>{
+                    let r=[];
+                    d.forEach(p=>{
+                        let k = p.p ? p.p :p.k;
+                        if(r[k]){
+                            if(Array.isArray(r[k])){
+                                r[k] = r[k].concat(p.v);
+                            }else{
+                                let oV = r[k];
+                                if(oV!=p.v)r[k] = [oV,p.v];
+                            } 
+                        }else
+                            r[k]=p.v
+                    });
+                    return r;
                 });
-                return r;
-            });
+                result = result.concat(rs)
+                
+            })
             //regroupe les valeurs par class 
-            rs = d3.nest()
+            result = d3.nest()
                 .key(d=> d['o:resource_class'])
-                .entries(rs); 
-            return rs;
+                .entries(result); 
+            return result;
         }
 
         this.init = function (idVocab) {
@@ -242,7 +247,7 @@ class adln {
                 let o = getJsonSynchrone(v['@id']);
                 //if(isItemSet(o)){
                 if(false){
-                        //récupère les items de la collection
+                    //récupère les items de la collection
                     let items = getJsonSynchrone(o['o:items']['@id']);
                     let rs = items.map(i=>{
                         return {'id':i['o:id'],'title':i['o:title']};
@@ -261,6 +266,7 @@ class adln {
                 } catch (err) {
                     console.error(err);
                     console.log('json mal formaté : '+val);
+                    console.log('item à corriger : '+d[['@id']].replace('api/items', 'admin/item'));                    
                 }finally {
                     vs = {t:t,k:p,v:val,p:v['property_label']};
                 }                  
