@@ -147,7 +147,7 @@ class adln {
 
         function createTableData(){
             //suprime les conteneurs obsolètes
-            this.cleanScene();
+            me.cleanScene();
 
             //crétion des tables
             tables = [

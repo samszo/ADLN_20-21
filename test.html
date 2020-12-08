@@ -37,9 +37,12 @@
            //nettoie la scene
            oADLN.cleanScene
            //récupère l'url
-           let url = d3.select("#urlSVG").node().
+           let url = d3.select("#urlSVG").node().value;
            //charge le svg
            let scene1 = oADLN.chargeSVG('asset/svg/dessin.svg','scene',bouge);
+       }
+
+       function bouge(){
 
        }
 
