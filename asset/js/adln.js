@@ -143,6 +143,7 @@ class adln {
             //suprime les conteneurs obsolètes
             me.cont.select('h1').remove();
             me.cont.selectAll('table').remove(); 
+            me.cont.select('svg').remove();
         }   
 
         function createTableData(){

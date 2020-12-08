@@ -101,7 +101,7 @@
      dur="6s"
      xlink:href="#g7394">
     <mpath
-       xlink:href="#path1424" />
+       xlink:href="#path7404" />
   </animateMotion>
   <g
      id="pacman">
@@ -177,8 +177,4 @@
        id="ellipse7385"
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.15171;stroke-opacity:1" />
   </g>
-  <path
-     id="path1424"
-     d="m 61.426948,92.911012 0.220168,-82.122767 53.500894,33.465579 -1.98152,52.17988 z"
-     style="fill:none;stroke:#000000;stroke-width:0.4px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
 </svg>

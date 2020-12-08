@@ -13,10 +13,9 @@
     <body>
         <div id='tools'>
             <label for="urlSVG">Saisissez l'adresse du svg :</label>
-            <input type="text" id="urlSVG" name="pathSVG" required
-                   minlength="4" maxlength="8" size="10">
+            <input type="text" id="urlSVG" name="pathSVG" size="80%">
             <button id="chargeSVG" type="button" onclick="chargerSvg()">Charger le svg</button>
-
+            <br/>
         </div>
         <div id='tableOmeka'></div>            
         <div id='scene'></div>            
@@ -35,11 +34,13 @@
 
        function chargerSvg(){
            //nettoie la scene
-           oADLN.cleanScene
+           oADLN.cleanScene();
+           d3.select('#scene').selectAll('svg').remove();
+           
            //récupère l'url
            let url = d3.select("#urlSVG").node().value;
            //charge le svg
-           let scene1 = oADLN.chargeSVG('asset/svg/dessin.svg','scene',bouge);
+           let scene1 = oADLN.chargeSVG(url,'scene',bouge);
        }
 
        function bouge(){
