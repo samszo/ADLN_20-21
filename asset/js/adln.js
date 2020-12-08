@@ -22,7 +22,8 @@ class adln {
             if(me.apiUrl.substr(me.apiUrl.length-1,1)!='/')me.apiUrl+='/';
         }
 
-        this.getListeVocabulaire = function(idCont, fctEnd){
+        this.getListeVocabulaire = function(idCont, fctChange){
+            me.showWait();
             verifInit();    
             d3.json(me.apiUrl+"vocabularies").then(function(vocabs) {
                 let contSlct = d3.select("#"+idCont);
@@ -32,21 +33,23 @@ class adln {
                     .attr('name','vocabs')                    
                     .on('change',function(d){
                         let id = this.options[this.selectedIndex].id;
-                        if(fctEnd)fctEnd(id);
+                        if(fctChange)fctChange(id);
                     });
                 slct.selectAll('option').data(vocabs).enter().append('option')
                     .attr('id',d=>{
                         return d['o:id'];
                     })
                     .html(d=>d['o:label']);
+                me.hideWait();               
             });
         }
 
           
         this.getItems = function (idsVocab) {
+            me.showWait();               
             let result = [];
             idsVocab.forEach(idV =>{
-                me.init(idV);
+                me.init(idV,null,true);
                 let rs = [];
                 items.forEach(i=>{
                     rs.push(getTypeVals(i));
@@ -68,19 +71,18 @@ class adln {
                     });
                     return r;
                 });
-                result = result.concat(rs)
-                
+                result = result.concat(rs)                
             })
             //regroupe les valeurs par class 
             result = d3.nest()
                 .key(d=> d['o:resource_class'])
                 .entries(result); 
+
+            me.hideWait();               
             return result;
         }
 
-        this.init = function (idVocab) {
-            me.showWait();
-
+        this.init = function (idVocab, endFct, synchrone) {
             verifInit();            
             
             me.idVocab = idVocab;
@@ -89,23 +91,52 @@ class adln {
                 return;
             }
             
-            //charges les vocabulaires de la fiction en synchrone
-            tables = [];
-            vocab = getJsonSynchrone(me.apiUrl+"vocabularies/"+me.idVocab);
-            classes = getJsonSynchrone(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab);
-            properties = getJsonSynchrone(me.apiUrl+"properties?vocabulary_id="+me.idVocab);
-
-            //récupère les items
             items = [];
-            classes.forEach(d => {
-                items = items.concat(getJsonSynchrone(me.apiUrl+"items?resource_class_id="+d['o:id']));
-            })
-           me.hideWait();               
+            tables = [];
+            if(synchrone){
+                //charges les vocabulaires de la fiction en synchrone
+                vocab = getJsonSynchrone(me.apiUrl+"vocabularies/"+me.idVocab);
+                classes = getJsonSynchrone(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab);
+                properties = getJsonSynchrone(me.apiUrl+"properties?vocabulary_id="+me.idVocab);
+
+                //récupère les items
+                classes.forEach(d => {
+                    items = items.concat(getJsonSynchrone(me.apiUrl+"items?resource_class_id="+d['o:id']));
+                })
+            }else{
+                //charges les vocabulaires de la fiction
+                let jsonVocabs = [
+                    d3.json(me.apiUrl+"vocabularies/"+me.idVocab)
+                    , d3.json(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab)
+                    , d3.json(me.apiUrl+"properties?vocabulary_id="+me.idVocab)
+                ];
+
+                Promise.all(jsonVocabs).then(function(values) {
+                    vocab = values[0];
+                    classes = values[1];
+                    properties = values[2];
+                    //récupère les items
+                    let jsonItems = [];
+                    classes.forEach(d => {
+                        jsonItems.push(d3.json(me.apiUrl+"items?resource_class_id="+d['o:id']));
+                    })
+                    Promise.all(jsonItems).then(function(rs) {
+                        rs.forEach(rsItem=>{
+                            items = items.concat(rsItem);
+                        });
+                        me.hideWait();           
+                        if(endFct)endFct();
+                    });
+                });
+            }
+
+
+
         }
 
         this.showData = function (idVocab) {
-            me.init(idVocab);
-            createTableData();
+            me.showWait();               
+            me.init(idVocab,createTableData);
         }
 
         function createTableData(){
@@ -113,35 +144,40 @@ class adln {
             me.cont.select('h1').remove();
             me.cont.selectAll('table').remove();
 
-            //cration des tables
+            //crétion des tables
+            tables = [
+                {'class':'o:ResourceClass','nom':'Tables','rs':classes}
+                ,{'class':'o:Property','nom':'Propriétés','rs':properties}
+                ,{'class':'o:Item','nom':'Items','rs':items}
+            ]
             me.cont.append('h1').html(vocab['o:label']);
-            let htmlTable = me.cont.selectAll('table').data([
-                {'nom':'Tables','rs':classes}
-                ,{'nom':'Propriétés','rs':properties}
-                ,{'nom':'Items','rs':items}
-            ]).enter()
+            let htmlTable = me.cont.selectAll('table').data(tables).enter()
                 .append('table')
-                .attr('id',(d,i)=>'adlnTable'+i)
+                .attr('id',(d,i)=>{
+                    //récupère les colonnes 
+                    propsForOmekaType[d.class] = getAllCols(d);
+                    //propsForOmekaType[d.class] = d3.nest()
+                    //    .key(d=> d.k)
+                    //    .entries(getAllVals(d.rs[0])).map(d=>{return {k:'titre',v:d.key};});                            
+                        //.entries(getColsVals(d.rs[0])).map(d=>{return {k:'titre',v:d.key};});                            
+                    //récupère toute les colonnes                    
+                    return 'adlnTable'+i;
+                })
                 .style('height',"100%")
                 .style('width',"100%");
             htmlTable.append('thead').append('tr').append('th')
                 .attr('colspan',d=>{
-                    let type = Array.isArray(d['rs'][0]['@type']) ? d['rs'][0]['@type'][0] : d['rs'][0]['@type'];
-                    return propsForOmekaType[type].length;
+                    return propsForOmekaType[d.class].length;
                 })
                 .html(d=>'<h2>'+d.nom+'</h2>');
             let htmlTableBody = htmlTable.append('tbody');
             let tr = htmlTableBody.selectAll('tr').data(d=>{
-                //récupère les colonnes
-                var cols = d3.nest()
-                    .key(d=> d.k)
-                    .entries(getTypeVals(d.rs[0])).map(d=>{return {k:'titre',v:d.key};});                            
                 //ajoute une ligne pour l'entête
-                d.rs = [{'titres':cols}].concat(d.rs);
+                d.rs = [{'titres':propsForOmekaType[d.class]}].concat(d.rs);
                 return d.rs;
             }).enter().append('tr');
             tr.selectAll('td').data((d,i)=>{
-                let rs = d.titres ? d.titres : getTypeVals(d);
+                let rs = d.titres ? d.titres : getColsVals(d, true);//getAllVals(d,true);//
                 return rs;
             }).enter().append('td').html(d=>{
                 var html = '';
@@ -161,6 +197,22 @@ class adln {
                 }
                 return html;
             })
+            me.hideWait();               
+        }
+
+
+        function getAllCols(d){
+            let cols = [];
+            d.rs.forEach(r=>{
+                for (const p in r) {
+                    cols[p]=1;
+                }
+            })
+            let rs = [];
+            for (const key in cols) {
+                rs.push({k:'titre',v:key});
+            }
+            return rs;
         }
 
         function geyOmkUrls(d){
@@ -184,31 +236,77 @@ class adln {
 
         function getTypeVals(d) {
             let vals = [];
-            if(Array.isArray(d['@type'])){
-                d['@type'].forEach(t=>{
-                    vals = vals.concat(getTypePropertiesVals(d, t));
-                })
-            }else{
-                vals = vals.concat(getTypePropertiesVals(d, d['@type']));
-            };                
+            if(d){
+                if(Array.isArray(d['@type'])){
+                    d['@type'].forEach(t=>{
+                        vals = vals.concat(getTypePropertiesVals(d, t));
+                    })
+                }else{
+                    vals = vals.concat(getTypePropertiesVals(d, d['@type']));
+                };                    
+            }
 
             return vals; 
         }
 
+        function getTypeData(d) {
+            let type = 'o:Item';
+            if(d){
+                if(Array.isArray(d['@type']))
+                    type = d['@type'][0];
+                else
+                    type = d['@type'];                  
+            }
+            return type; 
+        }
+
+        
+        function getColsVals(d, groupe) {
+            let vals = [];
+            if(d){
+                let t = getTypeData(d);
+                propsForOmekaType[t].forEach(prop=>{
+                    let val = getVals(d, t, prop.v);
+                    if(groupe) val = groupeVals(val);
+                    vals = vals.concat(val);
+                });                    
+            }
+            return vals; 
+        }
+
+        function getAllVals(d,groupe){
+            //récupère toutes les propriétés
+            let vals=[];
+            for (const prop in d) {
+                let val = getVals(d, getTypeData(d), prop);
+                if(groupe) val = groupeVals(val);
+                vals = vals.concat(val);
+            }             
+            return vals;           
+        }
+
+        function groupeVals(val){
+
+            let gVal = false;
+            val.forEach((v,i)=>{
+                if(i > 0){
+                    val[0].v+=','+v.v;
+                    gVal = val[0];
+                }                        
+            })
+            val = gVal ? gVal : val;
+            return val;                    
+        }
+
         function getTypePropertiesVals(d, t) {
             let vs = [], vals=[];
+            //récupère toutes les propriétés défini pour le type
             if(propsForOmekaType[t]){
                 propsForOmekaType[t].forEach(p=>{
                     if(p=='properties'){
-                        /*récupère toutes les propriétés du vocabulaire
                         properties.forEach(prop=>{
                             vs = vs.concat(getVals(d, t, prop['o:term']));
                         })
-                        */
-                        //récupère toutes les propriétés
-                        for (const prop in d) {
-                            vs = vs.concat(getVals(d, t, prop));
-                        }                        
                     }else    
                         vs = vs.concat(getVals(d, t, p));
                 })            
@@ -220,6 +318,7 @@ class adln {
         function getVals(d, t, p) {
             let vs=[];
             if(Array.isArray(d[p])){
+                if(!d[p].length)vs.push(getVal(d, t, p, '-'));
                 d[p].forEach(v=>{
                     vs.push(getVal(d, t, p, v));
                 })
