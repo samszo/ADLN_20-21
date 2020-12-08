@@ -11,7 +11,13 @@
         <link rel="stylesheet" href="asset/css/table.css" />
     </head>
     <body>
-        <div id='tools'></div>
+        <div id='tools'>
+            <label for="urlSVG">Saisissez l'adresse du svg :</label>
+            <input type="text" id="urlSVG" name="pathSVG" required
+                   minlength="4" maxlength="8" size="10">
+            <button id="chargeSVG" type="button" onclick="chargerSvg()">Charger le svg</button>
+
+        </div>
         <div id='tableOmeka'></div>            
         <div id='scene'></div>            
 
@@ -27,12 +33,15 @@
         //let rs = oADLN.getItems([21,19]);
         //console.log(rs);
 
-        /*
-        let scene1 = oADLN.chargeSVG('asset/svg/dessin.svg','scene',bouge);
-        function bouge(svg){
-            let t = 1;
-        }
-        */
+       function chargerSvg(){
+           //nettoie la scene
+           oADLN.cleanScene
+           //récupère l'url
+           let url = d3.select("#urlSVG").node().
+           //charge le svg
+           let scene1 = oADLN.chargeSVG('asset/svg/dessin.svg','scene',bouge);
+
+       }
 
     </script>
 </html>

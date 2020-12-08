@@ -139,10 +139,15 @@ class adln {
             me.init(idVocab,createTableData);
         }
 
-        function createTableData(){
+        this.cleanScene = function() {
             //suprime les conteneurs obsolètes
             me.cont.select('h1').remove();
-            me.cont.selectAll('table').remove();
+            me.cont.selectAll('table').remove(); 
+        }   
+
+        function createTableData(){
+            //suprime les conteneurs obsolètes
+            this.cleanScene();
 
             //crétion des tables
             tables = [
@@ -187,7 +192,13 @@ class adln {
                         break;                
                     case 'titre':
                         html='<h3>'+d.v+'</h3>';   
-                        break;                
+                        break;
+                    case 'thumbnail_display_urls':                
+                        html='';
+                        for (const ima in d.v) {
+                            html+= d.v[ima] ? ima+':<img src="'+d.v[ima]+'"></img><br/>' : '';
+                        }                            
+                        break;
                     default:
                         if(typeof d.v == "object"){
                             html = JSON.stringify(d.v);
@@ -353,9 +364,16 @@ class adln {
                     })
                     vs = {t:t,k:o['o:title'],v:rs};
                 }else{
-                    let lbl = o['o:label'] ? o['o:label'] : o['o:title'];
-                    //lbl += ' ('+o['o:id']+')';
-                    vs = {t:t,k:p,v:lbl};    
+                    switch (p) {
+                        case 'o:media':
+                            vs = {t:t,k:p,v:{'@id':o['@id'],'o:original_url':o['o:original_url'],'o:media_type':o['o:media_type'],}};                                
+                            break;                    
+                        default:
+                            let lbl = o['o:label'] ? o['o:label'] : o['o:title'];
+                            //lbl += ' ('+o['o:id']+')';
+                            vs = {t:t,k:p,v:lbl};    
+                            break;
+                    }
                 }
             }else if(v['@value']){
                 let val = v['@value'];
