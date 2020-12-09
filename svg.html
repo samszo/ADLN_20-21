@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Test SVG</title>
+    <script src="asset/js/d3.v6.min.js"></script>
+    <script src="asset/js/anime.min.js"></script>
+    
 </head>
 <body>
-    <svg width="800px" height="800px" viewBox="0 0 1000 1000"
+    <svg id="scene1" width="100%" height="100%" viewBox="0 0 1000 1000"
     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <desc>Exemple rect01 - rectangle avec des coins droits</desc>
 
  <!-- Montre le contour du canevas en utilisant l'élément 'rect' -->
- <rect x="1" y="1" width="1198" height="398"
+ <rect x="1" y="1" width="999" height="398"
        fill="none" stroke="blue" stroke-width="2"/>
 
  <rect x="400" y="100" width="400" height="200"
@@ -29,5 +32,261 @@
       </rect>
 
 </svg>
+<script>
+    //construction de data aléatoire
+    let chances = [],
+        formes = ['rect', 'circle', 'ellipse', 'polygon'];
+    let rdmCouleur = d3.randomInt(0, 255);
+    let rdmFormes = d3.randomInt(0, 4);
+    let rdmPosi = d3.randomUniform(0, 1000);
+    let rdmTaille = d3.randomUniform(10, 100);
+    let rdmTempsTransi = d3.randomUniform(3000, 30000);
+    let rdmColor = function () {
+        return "hsl(" + Math.random() * 360 + ",100%,50%)";
+    };
+    let easingNames = [
+        'easeInQuad',
+        'easeInCubic',
+        'easeInQuart',
+        'easeInQuint',
+        'easeInSine',
+        'easeInExpo',
+        'easeInCirc',
+        'easeInBack',
+        'easeOutQuad',
+        'easeOutCubic',
+        'easeOutQuart',
+        'easeOutQuint',
+        'easeOutSine',
+        'easeOutExpo',
+        'easeOutCirc',
+        'easeOutBack',
+        'easeInBounce',
+        'easeInOutQuad',
+        'easeInOutCubic',
+        'easeInOutQuart',
+        'easeInOutQuint',
+        'easeInOutSine',
+        'easeInOutExpo',
+        'easeInOutCirc',
+        'easeInOutBack',
+        'easeInOutBounce',
+        'easeOutBounce',
+        'easeOutInQuad',
+        'easeOutInCubic',
+        'easeOutInQuart',
+        'easeOutInQuint',
+        'easeOutInSine',
+        'easeOutInExpo',
+        'easeOutInCirc',
+        'easeOutInBack',
+        'easeOutInBounce',
+    ];
+    let rdmEasingNames = d3.randomInt(0, 36);
+
+    function chanceFormes(nb) {
+
+
+        for (let i = 0; i < nb; i++) {
+            let frm = formes[rdmFormes()],
+                c;
+            switch (frm) {
+                case 'rect':
+                    c = {
+                        f: frm,
+                        x: rdmPosi(),
+                        y: rdmPosi(),
+                        w: rdmTaille(),
+                        h: rdmTaille(),
+                        t: rdmTempsTransi(),
+                        fill: [rdmColor(), rdmColor()]
+                    };
+                    break;
+                case 'circle':
+                    c = {
+                        f: frm,
+                        x: rdmPosi(),
+                        y: rdmPosi(),
+                        r: rdmTaille(),
+                        fill: [rdmColor(), rdmColor()]
+                    };
+                    break;
+                case 'ellipse':
+                    c = {
+                        f: frm,
+                        x: rdmPosi(),
+                        y: rdmPosi(),
+                        r: rdmTaille()
+                    };
+                    break;
+                case 'polygon':
+                    c = {
+                        f: frm,
+                        x: rdmPosi(),
+                        y: rdmPosi(),
+                        r: rdmTaille()
+                    };
+                    break;
+            }
+            chances.push(c);
+        }
+        let scene = d3.select('#scene1');
+        scene.selectAll('rect').remove();
+        let rects = scene.selectAll('g').data(chances.filter(d => d.f == 'rect')).enter()
+            .append('g')
+            .append('rect')
+            .attr('x', d => {
+                return d.x
+            })
+            .attr('y', d => d.y)
+            .attr('width', d => d.w)
+            .attr('height', d => d.h)
+            .attr('opacity', 0.7)
+            .attr('fill', d => d.fill[0]);
+        scene.selectAll('circle').remove();
+        let cercles = scene.selectAll('circle').data(chances.filter(d => d.f == 'circle')).enter()
+            .append('circle')
+            .attr('cx', d => {
+                return d.x
+            })
+            .attr('cy', d => d.y)
+            .attr('r', d => d.r)
+            .attr('opacity', 0.7)
+            .attr('fill', d => d.fill[0]);
+        //    .call(transitionColor);
+        /*
+        rects.transition(d3.transition()
+                        .duration(6000)
+                        .ease(d3.easeLinear))
+                .style("fill", d=>d.fill[1]);
+        */
+    }
+
+    function changeChance() {
+        anime({
+            targets: ['svg rect', 'svg circle'],
+            translateX: function () {
+                return anime.random(-300, 300);
+            },
+            translateY: function (el) {
+                return anime.random(-300, 300);
+            },
+            /*
+            fill: function() {
+                let c1 = 'rgba('+rdmCouleur()+','+rdmCouleur()+','+rdmCouleur()+',0)';
+                let c2 = 'rgb('+rdmCouleur()+','+rdmCouleur()+','+rdmCouleur()+')';// 'rgba('+rdmCouleur()+','+rdmCouleur()+','+rdmCouleur()+',0)';
+                return [c1, c2]
+            },
+            */
+            //fill: ['rgba(0,0,0,0)', '#ff3d00'],
+            fill: {
+                value: function () {
+                    let c1 = 'rgb(' + rdmCouleur() + ',' + rdmCouleur() + ',' + rdmCouleur() + ')';
+                    let c2 = 'rgb(' + rdmCouleur() + ',' + rdmCouleur() + ',' + rdmCouleur() +
+                    ')'; // 'rgba('+rdmCouleur()+','+rdmCouleur()+','+rdmCouleur()+',0)';
+                    return [c1, c2]
+                },
+                loop: true,
+                duration: function () {
+                    return anime.random(1000, 10000);
+                },
+                easing: function () {
+                    return easingNames[rdmEasingNames()];
+                }
+            },
+
+            easing: function () {
+                return easingNames[rdmEasingNames()];
+            },
+            /*
+            rotate: {
+                value: function() {
+                    return anime.random(0, 360);
+                },
+                duration: 1800,
+                easing: function() {
+                return easingNames[rdmEasingNames()];
+                }
+            },
+            scale: {
+                value: function() {
+                    return anime.random(0.1, 10);
+                },
+                duration: function() {
+                    return anime.random(1000, 10000);
+                },
+                easing: function() {
+                    return easingNames[rdmEasingNames()];
+                }
+            },                        
+            */
+            duration: function () {
+                return anime.random(10000, 20000);
+            },
+            complete: changeChance
+            //loop:true
+        });
+    }
+
+    function bougePartout() {
+
+        anime({
+            targets: ['svg rect', 'svg circle'],
+            scale: (function () {
+                var keyframes = [];
+                for (var i = 0; i < 40; i++) {
+                    keyframes.push({
+                        value: function () {
+                            return anime.random(25, 125) / 100;
+                        },
+                        duration: anime.random(500, 1000),
+                    });
+                }
+                return keyframes;
+            })(),
+            translateX: (function () {
+                var keyframes = [];
+                for (var i = 0; i < 40; i++) {
+                    keyframes.push({
+                        value: function () {
+                            return anime.random(-25, 25) + 'vh';
+                        },
+                        duration: anime.random(1000, 2000),
+                    });
+                }
+                return keyframes;
+            })(),
+            translateY: (function () {
+                var keyframes = [];
+                for (var i = 0; i < 40; i++) {
+                    keyframes.push({
+                        value: function () {
+                            return anime.random(-25, 25) + 'vh';
+                        },
+                        duration: anime.random(2000, 4000),
+                    });
+                }
+                return keyframes;
+            })(),
+            easing: 'easeOutQuad',
+            delay: anime.stagger(2)
+        })
+    }
+
+    function transitionColor(node) {
+        node.each(function (d, i) {
+            d3.select(this).transition(d3.transition()
+                    .duration(rdmTempsTransi())
+                    .ease(d3.easeLinear))
+                .style("fill", d => d.fill[1]);
+        });
+    }
+
+    chanceFormes(1000)
+    changeChance()
+    //bougePartout()
+
+
+</script>
 </body>
 </html>
