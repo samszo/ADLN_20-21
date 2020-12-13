@@ -12,7 +12,9 @@
 </head>
 <body>
 	<h1>Test d'Anime.js</h1>
+	<h2 style="left:100;">Nouveau Test d'Anime.js</h2>
     <script type="text/javascript">
+       let posiH2 = 1;
        let animation = anime({
            targets: 'h1',
            translateX: '40%',
@@ -20,6 +22,20 @@
         });
         // l'animation se déclenche au clic (mais qu’une seule fois !)
         document.querySelector('h1').addEventListener('click', () => { animation.play(); });
+
+
+        let newAnim = anime({
+            targets: 'h2',
+            translateX: '100%',
+            delay: function(el, i) { return i * 100; },
+            autoplay: false
+        });
+
+        document.querySelector('h2').addEventListener('click', () => { 
+            newAnim.seek(newAnim.duration * posiH2/100);
+            posiH2++;
+        });
+
 
 </script>
 </body>
