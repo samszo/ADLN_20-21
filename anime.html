@@ -1,0 +1,26 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test SVG</title>
+    <script src="asset/js/d3.v6.min.js"></script>
+    <script src="asset/js/anime.min.js"></script>
+    
+</head>
+<body>
+	<h1>Test d'Anime.js</h1>
+    <script type="text/javascript">
+       let animation = anime({
+           targets: 'h1',
+           translateX: '40%',
+           autoplay: false
+        });
+        // l'animation se déclenche au clic (mais qu’une seule fois !)
+        document.querySelector('h1').addEventListener('click', () => { animation.play(); });
+
+</script>
+</body>
+</html>
