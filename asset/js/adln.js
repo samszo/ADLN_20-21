@@ -52,7 +52,8 @@ class adln {
                 me.init(idV,null,true);
                 let rs = [];
                 items.forEach(i=>{
-                    rs.push(getTypeVals(i));
+                    //rs.push(getTypeVals(i));
+                    rs.push(getAllVals(i));
                 })
                 //met à plat les valeurs
                 rs = rs.map(d=>{
