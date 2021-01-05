@@ -1,0 +1,82 @@
+  /* Div containing all menu items */
+  .Menu > * {
+    position: relative;
+    display: block;
+    z-index: 1;
+  }
+  
+/* Dropdown items */
+  .MenuItem {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    width:150px;
+  }
+  
+
+  /* Dropdown Content (Hidden by Default) */
+  .DropdownContent {
+    display: none;
+    position: absolute;
+    margin-top:-50px;
+    left:156px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+  
+  /* Links inside the dropdown */
+  .DropdownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  #Item1:hover + #Dropdown1,
+  #Dropdown1:hover,
+  #Item2:hover + #Dropdown2,
+  #Dropdown2:hover,
+  #Item3:hover + #Dropdown3,
+  #Dropdown3:hover,
+  #Item4:hover + #Dropdown4,
+  #Dropdown4:hover,
+  #Item5:hover + #Dropdown5,
+  #Dropdown5:hover,
+  #Item6:hover + #Dropdown6,
+  #Dropdown6:hover
+  {
+    display:block;
+  }
+
+  #DrawingSpace{
+    position: absolute;
+    top:0px;
+    right:30%;
+    width:60%;
+    height: 100vh;
+    border:1px solid black;
+  }
+  #ChairImage{
+    position:relative;
+    left:0px;
+    top: 200px;
+    height: 400px;
+    width:auto;
+  }
+  #LetterSpace{
+    position: absolute;
+    top:0px;
+    right:0px;
+    width: 30%;
+    height: 100vh;
+    background-color: rgb(239, 240, 202);
+    border:1px solid black;
+    padding: 0px 12px 0px 12px;
+  }
+  p{
+      overflow-wrap: normal;
+  }

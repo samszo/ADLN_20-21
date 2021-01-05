@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Group Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="walkingsim.css" rel="stylesheet">
+</head>
+
+<body>
+  
+<div id="Wrapper">
+
+    <div class="Menu">
+        <button class="MenuItem" id="Item1">Chair</button>
+        <div class="DropdownContent" id="Dropdown1">
+          <a href="#" id="ChairMom" onclick="change_image(this.id)">From mom</a>
+          <a href="#" id="ChairStreet" onclick="change_image(this.id)">From the streets</a>
+          <a href="#" id="ChairShop" onclick="change_image(this.id)">From a luxurious shop</a>
+        </div>
+
+        <!--Set id and onclick properties for each a-->
+        <button class="MenuItem" id="Item2">Floor Lamp</button>
+        <div class="DropdownContent" id="Dropdown2">
+          <a href="#">From mom</a>
+          <a href="#">From the thrift store</a>
+          <a href="#">From Ikea</a>
+        </div>
+
+        <button class="MenuItem" id="Item3">Flower Pot</button>
+        <div class="DropdownContent" id="Dropdown3">
+          <a href="#">From a lover</a>
+          <a href="#">From a nearby field</a>
+          <a href="#">From a local shop</a>
+        </div>
+
+        <button class="MenuItem" id="Item4">Lamp</button>
+        <div class="DropdownContent" id="Dropdown4">
+          <a href="#">Turn on</a>
+          <a href="#">Turn off</a>
+        </div>
+
+        <button class="MenuItem" id="Item5">Gift Card</button>
+        <div class="DropdownContent" id="Dropdown5">
+          <a href="#">Use it</a>
+          <a href="#">Give it to brother who's going to college</a>
+        </div>
+
+        <button class="MenuItem" id="Item6">Cabinet</button>
+        <div class="DropdownContent" id="Dropdown6">
+          <a href="#">Sell it</a>
+          <a href="#">Give it to mom because she needs it</a>
+          <a href="#">Keep it because it looks nice</a>
+        </div>
+    </div>
+
+    <div id="DrawingSpace">
+        <!--This is where you can add more img's for each object-->
+        <img src="images/null.png" id="ChairImage">
+    </div>
+    
+    <div id="LetterSpace">
+        <!--This is where you can add more p's for each line in the letter-->
+        <p id="Line1"></p>
+    </div>
+
+</div>
+<script src="walkingsim.js"></script>
+</body>
+
+</html>
