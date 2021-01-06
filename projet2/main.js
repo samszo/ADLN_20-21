@@ -4,4 +4,4 @@
 		gr 2 : 7
 		gr 3 : 6
 	*/
-	let gen = genF(21);
+	let gen = genF(7);
