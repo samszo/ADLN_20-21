@@ -1,9 +1,10 @@
 //This is where all the game logic occurs
 function change_image(clicked_id){
     if(clicked_id=="ChairMom"){
-        document.getElementById("ChairImage").src="images/chair_mom.png";
+        //document.getElementById("ChairImage").src="images/chair_mom.png";       
         //document.getElementById("Line1").innerHTML="I had moved out and said my goodbyes, although my parents made sure to give me at least a couple keepsakes before I left."
         document.getElementById("Line1").innerHTML=gen.Monde[0].values[7].Description;
+        document.getElementById("ChairImage").src=gen.Monde[1].values[1].media;
     }
 
     else if(clicked_id=="ChairStreet"){
