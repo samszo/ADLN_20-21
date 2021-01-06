@@ -26,12 +26,25 @@ function change_image(clicked_id){
       document.getElementById("FloorLampImage").src=gen.Monde[1].values[4].media;
     } 
 
-        else if(clicked_id=="FloorLampThrift"){
+        else if(clicked_id=="FloorLampthrift"){
         document.getElementById("Line2").innerHTML=gen.Monde[1].values[3].Description;
         document.getElementById("FloorLampImage").src=gen.Monde[1].values[3].media;
     }
      else if(clicked_id=="FloorLampIkea"){
         document.getElementById("Line2").innerHTML=gen.Monde[1].values[5].Description;
         document.getElementById("FloorLampImage").src=gen.Monde[1].values[5].media;
+    }
+
+    if(clicked_id=="FlowerPotLover"){
+        document.getElementById("Line3").innerHTML=gen.Monde[1].values[7].Description;
+        document.getElementById("FlowerPotLover").src=gen.Monde[1].values[7].media;
+    }
+     else if(clicked_id=="FlowerPotField"){
+        document.getElementById("Line3").innerHTML=gen.Monde[1].values[6].Description;
+        document.getElementById("FlowerPotImage").src=gen.Monde[1].values[6].media;
+    }
+     else if(clicked_id=="FlowerPotShop"){
+        document.getElementById("Line3").innerHTML=gen.Monde[1].values[8].Description;
+        document.getElementById("FlowerPotImage").src=gen.Monde[1].values[8].media;
     }
 } 
