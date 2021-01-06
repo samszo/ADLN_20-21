@@ -26,7 +26,7 @@ function change_image(clicked_id){
       document.getElementById("FloorLampImage").src=gen.Monde[1].values[4].media;
     } 
 
-        else if(clicked_id=="FloorLampthrift"){
+        else if(clicked_id=="FloorLampThrift"){
         document.getElementById("Line2").innerHTML=gen.Monde[1].values[3].Description;
         document.getElementById("FloorLampImage").src=gen.Monde[1].values[3].media;
     }
