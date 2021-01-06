@@ -21,10 +21,6 @@ function change_image(clicked_id){
       document.getElementById("ChairImage").src=gen.Monde[1].values[2].media;
     }
     
-}
-
-function change_image(clicked_id){
-
     if(clicked_id=="FloorlampMom"){
       document.getElementById("Line1").innerHTML=gen.Monde[1].values[4].Description;
       document.getElementById("FloorlampImage").src=gen.Monde[1].values[4].media;
