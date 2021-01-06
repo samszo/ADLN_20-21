@@ -7,4 +7,6 @@
 	let gen = genF(16);
 	console.log(gen);
 	console.log(gen.Monde[0].values[7].Description);
+	//document.getElementById("Line1").innerHTML=gen.Monde[0].values[7].Description;
+
 

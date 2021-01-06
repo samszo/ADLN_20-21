@@ -2,7 +2,8 @@
 function change_image(clicked_id){
     if(clicked_id=="ChairMom"){
         document.getElementById("ChairImage").src="images/chair_mom.png";
-        document.getElementById("Line1").innerHTML="I had moved out and said my goodbyes, although my parents made sure to give me at least a couple keepsakes before I left."
+        //document.getElementById("Line1").innerHTML="I had moved out and said my goodbyes, although my parents made sure to give me at least a couple keepsakes before I left."
+        document.getElementById("Line1").innerHTML=gen.Monde[0].values[7].Description;
     }
 
     else if(clicked_id=="ChairStreet"){
