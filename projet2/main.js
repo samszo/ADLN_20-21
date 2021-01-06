@@ -6,4 +6,4 @@
 	*/
 	let gen = genF(7);
 
-gen.faire(["talk","Worm","Book",2]);
+gen.faire(["talk ","Worm","book",2]);
