@@ -5,3 +5,4 @@
 		gr 3 : 6
 	*/
 	let gen = genF(6);
+	gen.faire(["die","Hunter"]);
