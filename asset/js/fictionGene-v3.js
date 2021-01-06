@@ -9,6 +9,7 @@ function genF(voca){ // module de génération de fiction
 	
 // variables privées
 	let infoFin = false; // paramètre qui évite de répéter le message de fin à chaque fois qu'un évènement suit l'évènement de fin. Cette variable n'est utilisée que lorsque messages = true
+	
 	//let listeID; // liste des propriétés ID des tables du monde
 	
 	
@@ -41,26 +42,26 @@ function genF(voca){ // module de génération de fiction
 	//retour.test = test; // pour déboggage : renommer n'importe quelle fonction "test" permet de la tester depuis le programme principal
 	
 	//récupération des variables utiles 
-	retour.Monde = Monde; //*
-	retour.Event = Event; //*
-	retour.story = story; //*
-	retour.messages = messages; // propriété non documentée dans l'aide -- pour déboggage //*
+	retour.Monde = Monde; 
+	retour.Event = Event; 
+	retour.story = story; 
+	retour.messages = messages; // propriété non documentée dans l'aide -- pour déboggage 
 	
 	// récupération des fonctions utiles
-	retour.finie = finie; //*
-	retour.copieTable = copieTable; //*
-	retour.getEntity = Entity; //*
+	retour.finie = finie; 
+	retour.copieTable = copieTable; 
+	retour.getEntity = Entity; 
 	//retour.getListeProp = tableProp;
-	retour.verifie = verifieReq; //*
-	retour.affecteValeur = affecteValeurProb; //*
-	retour.showData = showData;
-	retour.faire = faireAvecFin; //*
-	retour.faireAvecProba = faireAvecProba; //*
-	retour.affiche = afficheSVG;
-	retour.efface = effaceSVG;
+	retour.verifie = verifieReq; 
+	retour.affecteValeur = affecteValeurProb; 
+	retour.showData = showData; 
+	retour.faire = faireAvecFin; 
+	retour.faireAvecProba = faireAvecProba; 
+	retour.affiche = afficheSVG; 
+	retour.efface = effaceSVG; 
 	retour.getAffichage = genSVG.getAffichage;
-	retour.affichagePeriodique = genSVG.affichagePeriodique;
-	retour.getItem = getItem; //* + *
+	retour.affichagePeriodique = genSVG.affichagePeriodique; 
+	retour.getItem = getItem; 
 	//retour.definitID = definitID;
 	
 	return retour;
