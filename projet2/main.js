@@ -5,3 +5,5 @@
 		gr 3 : 6
 	*/
 	let gen = genF(7);
+
+gen.faire(["talk","Worm","Book",2]);
