@@ -20,17 +20,18 @@ function change_image(clicked_id){
       document.getElementById("Line1").innerHTML=gen.Monde[1].values[2].Description;
       document.getElementById("ChairImage").src=gen.Monde[1].values[2].media;
     }
-    
-    if(clicked_id=="FloorlampMom"){
-      document.getElementById("Line1").innerHTML=gen.Monde[1].values[4].Description;
-      document.getElementById("FloorlampImage").src=gen.Monde[1].values[4].media;
+
+    if(clicked_id=="FloorLampMom"){
+      document.getElementById("Line2").innerHTML=gen.Monde[1].values[4].Description;
+      document.getElementById("FloorLampImage").src=gen.Monde[1].values[4].media;
     } 
-        else if(clicked_id=="Floorlampthrift"){
-        document.getElementById("Line1").innerHTML=gen.Monde[1].values[3].Description;
-        document.getElementById("FloorlampImage").src=gen.Monde[1].values[3].media;
+
+        else if(clicked_id=="FloorLampthrift"){
+        document.getElementById("Line2").innerHTML=gen.Monde[1].values[3].Description;
+        document.getElementById("FloorLampImage").src=gen.Monde[1].values[3].media;
     }
-     else if(clicked_id=="FloorlampIkea"){
-        document.getElementById("Line1").innerHTML=gen.Monde[1].values[5].Description;
-        document.getElementById("FloorlampImage").src=gen.Monde[1].values[5].media;
+     else if(clicked_id=="FloorLampIkea"){
+        document.getElementById("Line2").innerHTML=gen.Monde[1].values[5].Description;
+        document.getElementById("FloorLampImage").src=gen.Monde[1].values[5].media;
     }
 } 
