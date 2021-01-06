@@ -383,7 +383,7 @@ class adln {
                     if(p=='gfg:requirements' || p=='gfg:finalStates' || p=='gfg:sequence' || p=='gfg:branchs')
                         val=JSON.parse(val); 
                 } catch (err) {
-                    //if(err)console.error(err);
+                    if(err)console.error(err);
                     console.log('json mal formaté : '+val);
                     console.log('item à corriger : '+d[['@id']].replace('api/items', 'admin/item'));                    
                 }finally {
