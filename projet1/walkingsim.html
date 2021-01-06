@@ -31,18 +31,18 @@
         </div>
 
         <!--Set id and onclick properties for each a-->
-        <button class="MenuItem" id="Item2">Floor Lamp</button>
+        <button class="MenuItem" id="Item2">Floorlamp</button>
         <div class="DropdownContent" id="Dropdown2">
-          <a href="#">From mom</a>
-          <a href="#">From the thrift store</a>
-          <a href="#">From Ikea</a>
+          <a href="#"id="FloorLampMom"onclick="change_image(this.id)">From mom</a>
+          <a href="#"id="FloorLampThrift"onclick="change_image(this.id)">From the thrift store</a>
+          <a href="#"id="FloorLampIkea"onclick="change_image(this.id)">From Ikea</a>
         </div>
 
         <button class="MenuItem" id="Item3">Flower Pot</button>
         <div class="DropdownContent" id="Dropdown3">
-          <a href="#">From a lover</a>
-          <a href="#">From a nearby field</a>
-          <a href="#">From a local shop</a>
+          <a href="#"id="FlowerPotLover"onclick="change_image(this.id)">From a lover</a>
+          <a href="#"id="FlowerPotField"onclick="change_image(this.id)">From a nearby field</a>
+          <a href="#"id="FlowerPotShop"onclick="change_image(this.id)">From a local shop</a>
         </div>
 
         <button class="MenuItem" id="Item4">Lamp</button>
@@ -68,11 +68,17 @@
     <div id="DrawingSpace">
         <!--This is where you can add more img's for each object-->
         <img src="images/null.png" id="ChairImage">
+        <img src="images/null.png" id="FloorLampImage">
+        <img src="images/null.png" id="FlowerPotImage">
+
     </div>
     
     <div id="LetterSpace">
         <!--This is where you can add more p's for each line in the letter-->
         <p id="Line1"></p>
+        <p id="Line2"></p>
+        <p id="Line3"></p>
+
     </div>
 
 </div>
