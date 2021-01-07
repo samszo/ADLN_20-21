@@ -1,23 +1,18 @@
 //This is where all the game logic occurs
 function change_image(clicked_id){
     if(clicked_id=="ChairMom"){
-        //document.getElementById("ChairImage").src="images/chair_mom.png";       
-        //document.getElementById("Line1").innerHTML="I had moved out and said my goodbyes, although my parents made sure to give me at least a couple keepsakes before I left."
-        document.getElementById("Line1").innerHTML=gen.Monde[1].values[1].Description;
+       document.getElementById("Line1").innerHTML=gen.Monde[1].values[1].Description;
         document.getElementById("ChairImage").src=gen.Monde[1].values[1].media;
+        document.getElementById("FamilyImage").src=gen.Monde[1].values[11].media;
     }
 
     else if(clicked_id=="ChairStreet"){
-       // document.getElementById("ChairImage").src="images/chair_thrift_store.png";
-       // document.getElementById("Line1").innerHTML="I found myself in a new city, and with an empty apartment waiting for me. When I saw this on the side of the road, well, one man’s trash and all that."
-       document.getElementById("Line1").innerHTML=gen.Monde[1].values[0].Description;
+      document.getElementById("Line1").innerHTML=gen.Monde[1].values[0].Description;
        document.getElementById("ChairImage").src=gen.Monde[1].values[0].media;
     }
 
     else if(clicked_id=="ChairShop"){
-      //  document.getElementById("ChairImage").src="images/chair_ikea.png";
-      //  document.getElementById("Line1").innerHTML="I was living the dream, had a fresh start, in a new city, getting ready to go out in the world and make a name for myself."
-      document.getElementById("Line1").innerHTML=gen.Monde[1].values[2].Description;
+     document.getElementById("Line1").innerHTML=gen.Monde[1].values[2].Description;
       document.getElementById("ChairImage").src=gen.Monde[1].values[2].media;
     }
 
@@ -47,4 +42,15 @@ function change_image(clicked_id){
         document.getElementById("Line3").innerHTML=gen.Monde[1].values[8].Description;
         document.getElementById("FlowerPotImage").src=gen.Monde[1].values[8].media;
     }
+    if(clicked_id=="LampOn"){
+        document.getElementById("Line4").innerHTML=gen.Monde[1].values[9].Description;
+        document.getElementById("LampOn").src=gen.Monde[1].values[9].media;
+    }
+     else if(clicked_id=="LampOff"){
+        document.getElementById("Line4").innerHTML=gen.Monde[1].values[10].Description;
+        document.getElementById("LampOff").src=gen.Monde[1].values[10].media;
+    }
 } 
+
+
+  
