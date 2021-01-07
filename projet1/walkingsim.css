@@ -1,4 +1,4 @@
-  /* Div containing all menu items */
+    /* Div containing all menu items */
   .Menu > * {
     position: relative;
     display: block;
@@ -63,10 +63,33 @@
   #ChairImage{
     position:relative;
     left:0px;
-    top: 200px;
-    height: 400px;
+    top: 100px;
+    height: 200px;
     width:auto;
   }
+  #FlowerPotImage{
+    position:relative;
+    left:0px;
+    top: 100px;
+    height: 200px;
+    width:auto;
+  }
+
+  #FloorLampImage{
+    position:relative;
+    left:0px;
+    top: 100px;
+    height: 200px;
+    width:auto;
+  }
+  #LampImage{
+    position:relative;
+    left:0px;
+    top: 100px;
+    height: 200px;
+    width:auto;
+  }
+
   #LetterSpace{
     position: absolute;
     top:0px;
