@@ -22,8 +22,8 @@
 
 <div id="Wrapper">
 
-    <div class="Menu">
-        <button class="MenuItem" id="Item1">Chair</button>
+    <div class="Menu" id="test">
+        <button class="MenuItem"  id="Item1" onclick="visible_Button()">Chair</button>
         <div class="DropdownContent" id="Dropdown1">
           <a href="#" id="ChairMom" onclick="change_image(this.id)">From mom</a>
           <a href="#" id="ChairStreet" onclick="change_image(this.id)">From the streets</a>
@@ -31,49 +31,51 @@
         </div>
 
         <!--Set id and onclick properties for each a-->
-        <button class="MenuItem" id="Item2">Floorlamp</button>
+        <button class="MenuItem MenuItemHidden" id="Item2" onclick="visible_Button()" >Floorlamp</button>
         <div class="DropdownContent" id="Dropdown2">
           <a href="#"id="FloorLampMom"onclick="change_image(this.id)">From mom</a>
           <a href="#"id="FloorLampThrift"onclick="change_image(this.id)">From the thrift store</a>
           <a href="#"id="FloorLampIkea"onclick="change_image(this.id)">From Ikea</a>
         </div>
 
-        <button class="MenuItem" id="Item3">Flower Pot</button>
+        <button class="MenuItem MenuItemHidden" id="Item3"onclick="visible_Button()">Flower Pot</button>
         <div class="DropdownContent" id="Dropdown3">
           <a href="#"id="FlowerPotLover"onclick="change_image(this.id)">From a lover</a>
           <a href="#"id="FlowerPotField"onclick="change_image(this.id)">From a nearby field</a>
           <a href="#"id="FlowerPotShop"onclick="change_image(this.id)">From a local shop</a>
         </div>
 
-        <button class="MenuItem" id="Item4">Lamp</button>
+        <button class="MenuItem MenuItemHidden" id="Item4"onclick="visible_Button()">Lamp</button>
         <div class="DropdownContent" id="Dropdown4">
           <a href="#"id="LampOn"onclick="change_image(this.id)">Turn on</a>
           <a href="#"id="LampOff"onclick="change_image(this.id)">Turn off</a>
         </div>
 
-        <button class="MenuItem" id="Item5">Gift Card</button>
+        <button class="MenuItem MenuItemHidden" id="Item5"onclick="visible_Button()">Gift Card</button>
         <div class="DropdownContent" id="Dropdown5">
           <a href="#"id="IkeaUse"onclick="change_image(this.id)">Use it</a>
           <a href="#"id="IkeaGive"onclick="change_image(this.id)">Give it to brother who's going to college</a>
         </div>
 
-        <button class="MenuItem" id="Item6">Cabinet</button>
+        <button class="MenuItem MenuItemHidden" id="Item6"onclick="visible_Button()">Cabinet</button>
         <div class="DropdownContent" id="Dropdown6">
-          <a href="#">Sell it</a>
-          <a href="#">Give it to mom because she needs it</a>
-          <a href="#">Keep it because it looks nice</a>
+          <a href="#"id="CabinetSell"onclick="change_image(this.id)">Sell it</a>
+          <a href="#"id="CabinetMom"onclick="change_image(this.id)">Give it to mom because she needs it</a>
+          <a href="#"id="CabinetKeep"onclick="change_image(this.id)">Keep it because it looks nice</a>
         </div>
     </div>
 
     <div id="DrawingSpace">
         <!--This is where you can add more img's for each object-->
-        <img src="images/null.png" id="ChairImage">
+        <img id="ChairImage" >
         <img src="images/null.png" id="FloorLampImage">
         <img src="images/null.png" id="FlowerPotImage">
         <img src="images/null.png" id="FamilyImage">
         <img src="images/null.png" id="LampImage">
         <img src="images/null.png" id="IkeaImage">
         <img src="images/null.png" id="CoffeeTableImage">
+        <img src="images/null.png" id="CabinetImage">
+
 
     </div>
     
@@ -84,6 +86,7 @@
         <p id="Line3"></p>
         <p id="Line4"></p>
         <p id="Line5"></p>
+        <p id="Line6"></p>
 
 
 
