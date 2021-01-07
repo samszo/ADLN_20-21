@@ -14,7 +14,9 @@
     border: none;
     width:150px;
   }
-  
+  .MenuItemHidden {
+    display:none
+  }
 
   /* Dropdown Content (Hidden by Default) */
   .DropdownContent {
@@ -63,47 +65,61 @@
   #ChairImage{
     position:relative;
     left:0px;
-    top: 100px;
-    height: 200px;
+    top: 50px;
+    height: 100px;
     width:auto;
   }
   #FlowerPotImage{
     position:relative;
     left:0px;
-    top: 100px;
-    height: 200px;
+    top: 50px;
+    height: 100px;
     width:auto;
   }
 
   #FloorLampImage{
     position:relative;
     left:0px;
-    top: 100px;
-    height: 200px;
+    top: 50px;
+    height: 100px;
     width:auto;
   }
   #LampImage{
     position:relative;
     left:0px;
-    top: 100px;
-    height: 200px;
+    top: 50px;
+    height: 100px;
     width:auto;
   }
   #CoffeeTableImage{
     position:relative;
     left:0px;
-    top: 100px;
-    height: 200px;
+    top: 50px;
+    height: 100px;
     width:auto;
   }
   #IkeaImage{
     position:relative;
     left:0px;
-    top: 100px;
-    height: 200px;
+    top: 50px;
+    height: 100px;
     width:auto;
   }
+  #CabinetImage{
+    position:relative;
+    left:0px;
+    top: 50px;
+    height: 100px;
+    width:auto;
+  } 
 
+  #FamilyImage{
+    position:relative;
+    left:0px;
+    top: 50px;
+    height: 100px;
+    width:auto;
+  }
 
   #LetterSpace{
     position: absolute;
