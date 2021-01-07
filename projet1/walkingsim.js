@@ -61,5 +61,17 @@ function change_image(clicked_id){
      }
 } 
 
+//merci à https://forum.alsacreations.com/topic-6-50925-1-Utilisation-de-displaynone-et-de-javascript-Y.html
+function AfficherCacher(id) 
+{
+    var test = document.getElementById(id).style.display;
+    if (test == "block") 
+    {
+        document.getElementById(id).style.display = "none";
+    }
+    else 
+    {
+        document.getElementById(id).style.display = "block";
+    }
+}
 
-  
