@@ -1,4 +1,4 @@
-    /* Div containing all menu items */
+  /* Div containing all menu items */
   .Menu > * {
     position: relative;
     display: block;
@@ -89,6 +89,21 @@
     height: 200px;
     width:auto;
   }
+  #CoffeeTableImage{
+    position:relative;
+    left:0px;
+    top: 100px;
+    height: 200px;
+    width:auto;
+  }
+  #IkeaImage{
+    position:relative;
+    left:0px;
+    top: 100px;
+    height: 200px;
+    width:auto;
+  }
+
 
   #LetterSpace{
     position: absolute;
