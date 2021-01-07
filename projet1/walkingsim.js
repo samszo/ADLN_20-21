@@ -21,7 +21,7 @@ function change_image(clicked_id){
       document.getElementById("FloorLampImage").src=gen.Monde[1].values[4].media;
     } 
 
-        else if(clicked_id=="FloorLampthrift"){
+        else if(clicked_id=="FloorLampThrift"){
         document.getElementById("Line2").innerHTML=gen.Monde[1].values[3].Description;
         document.getElementById("FloorLampImage").src=gen.Monde[1].values[3].media;
     }
@@ -32,7 +32,7 @@ function change_image(clicked_id){
 
     if(clicked_id=="FlowerPotLover"){
         document.getElementById("Line3").innerHTML=gen.Monde[1].values[7].Description;
-        document.getElementById("FlowerPotLover").src=gen.Monde[1].values[7].media;
+        document.getElementById("FlowerPotImage").src=gen.Monde[1].values[7].media;
     }
      else if(clicked_id=="FlowerPotField"){
         document.getElementById("Line3").innerHTML=gen.Monde[1].values[6].Description;
@@ -44,12 +44,21 @@ function change_image(clicked_id){
     }
     if(clicked_id=="LampOn"){
         document.getElementById("Line4").innerHTML=gen.Monde[1].values[9].Description;
-        document.getElementById("LampOn").src=gen.Monde[1].values[9].media;
+        document.getElementById("LampImage").src=gen.Monde[1].values[9].media;
     }
      else if(clicked_id=="LampOff"){
         document.getElementById("Line4").innerHTML=gen.Monde[1].values[10].Description;
-        document.getElementById("LampOff").src=gen.Monde[1].values[10].media;
+        document.getElementById("LampImage").src=gen.Monde[1].values[10].media;
     }
+    if(clicked_id=="IkeaUse"){
+        document.getElementById("Line5").innerHTML=gen.Monde[1].values[21].Description;
+        document.getElementById("CoffeeTableImage").innerHTML=gen.Monde[1].values[23].media;
+      
+    }
+     else if(clicked_id=="IkeaGive"){
+        document.getElementById("Line5").innerHTML=gen.Monde[1].values[10].Description;
+    
+     }
 } 
 
 
