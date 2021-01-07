@@ -1,19 +1,25 @@
 //This is where all the game logic occurs
 function change_image(clicked_id){
     if(clicked_id=="ChairMom"){
+        
        document.getElementById("Line1").innerHTML=gen.Monde[1].values[1].Description;
         document.getElementById("ChairImage").src=gen.Monde[1].values[1].media;
         document.getElementById("FamilyImage").src=gen.Monde[1].values[11].media;
+        document.getElementById("FamilyImage").style.display="block";
     }
 
     else if(clicked_id=="ChairStreet"){
       document.getElementById("Line1").innerHTML=gen.Monde[1].values[0].Description;
        document.getElementById("ChairImage").src=gen.Monde[1].values[0].media;
+       document.getElementById("FamilyImage").src=gen.Monde[1].values[11].media;
+       document.getElementById("FamilyImage").style.display="none";
     }
 
     else if(clicked_id=="ChairShop"){
      document.getElementById("Line1").innerHTML=gen.Monde[1].values[2].Description;
       document.getElementById("ChairImage").src=gen.Monde[1].values[2].media;
+      document.getElementById("FamilyImage").src=gen.Monde[1].values[11].media;
+      document.getElementById("FamilyImage").style.display="none";
     }
 
     if(clicked_id=="FloorLampMom"){
@@ -52,26 +58,38 @@ function change_image(clicked_id){
     }
     if(clicked_id=="IkeaUse"){
         document.getElementById("Line5").innerHTML=gen.Monde[1].values[21].Description;
-        document.getElementById("CoffeeTableImage").innerHTML=gen.Monde[1].values[23].media;
+        document.getElementById("CoffeeTableImage").src=gen.Monde[1].values[23].media;
       
     }
      else if(clicked_id=="IkeaGive"){
         document.getElementById("Line5").innerHTML=gen.Monde[1].values[10].Description;
-    
+    }
+     if(clicked_id=="CabinetSell"){
+        
+        document.getElementById("Line6").innerHTML=gen.Monde[1].values[15].Description;
+        
      }
+     else if(clicked_id=="CabinetMom"){
+        
+        document.getElementById("Line6").innerHTML=gen.Monde[1].values[16].Description;
+        
+     }
+     else if(clicked_id=="CabinetKeep"){
+        
+        document.getElementById("Line6").innerHTML=gen.Monde[1].values[17].Description;
+        document.getElementById("CabinetImage").src=gen.Monde[1].values[17].media;
+        
+     }
+     
 } 
 
-//merci à https://forum.alsacreations.com/topic-6-50925-1-Utilisation-de-displaynone-et-de-javascript-Y.html
-function AfficherCacher(id) 
-{
-    var test = document.getElementById(id).style.display;
-    if (test == "block") 
-    {
-        document.getElementById(id).style.display = "none";
-    }
-    else 
-    {
-        document.getElementById(id).style.display = "block";
-    }
-}
 
+function visible_Button(){
+    console.log(document.getElementById("test").getElementsByClassName("MenuItemHidden"));
+    getdiv=document.getElementById("test");
+    lenarrray=getdiv.getElementsByClassName("MenuItemHidden").length;
+    console.log(lenarrray);
+    random=Math.floor(Math.random() * Math.floor(lenarrray));
+    getdiv.getElementsByClassName("MenuItemHidden")[random].style.display="block";
+    getdiv.getElementsByClassName("MenuItemHidden")[random].classList.remove("MenuItemHidden");
+}
