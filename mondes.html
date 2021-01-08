@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ATELIER DISPOSITIFS LITTÉRAIRES NUMÉRIQUES : gestion des mondes</title>
+        <meta name="description" content="ATELIER DISPOSITIFS LITTÉRAIRES NUMÉRIQUES">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="asset/js/d3.v6.min.js"></script>    
+        <script src="asset/js/jquery-3.5.1.min.js"></script>    
+        <script src="asset/js/w2ui-1.5.rc1.min.js"></script>    
+        <script src="asset/js/bootstrap-treeview.min.js"></script>    
+
+        <script src="asset/js/omk.js"></script>
+        <script src="asset/js/legende.js"></script>
+        <script src="asset/js/fictionGene-v4.js"></script>
+        <script src="asset/js/afficheSVG.js"></script>
+
+        <link href="asset/css/bootstrap.min.css" rel="stylesheet" >        
+        <link href="asset/css/w2ui-1.5.rc1.min.css" rel="stylesheet" >        
+        <link href="asset/css/bootstrap-treeview.min.css" rel="stylesheet" >        
+
+        <style>
+          #mnuLegende{
+            overflow: scroll;
+          }
+        </style>
+
+    </head>
+    <body>
+        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Gestion des Mondes</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <ul class="navbar-nav px-3">
+              <li class="nav-item text-nowrap">
+                <div id="logoPapi"></div>
+              </li>
+            </ul>
+        </header>
+        <div class="container-fluid">
+            <div class="row">                
+              <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                          Liste des mondes
+                      </button>
+                      <ul id='ulMonde'class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      </ul>
+                    </div>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                      <span>Etat initial du Monde</span>
+                    </h6>                    
+                    <div id='mnuLegende'></div>
+
+                </div>
+              </nav>
+          
+              <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                  <h1 class='titreMonde' class="h2"></h1>
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                  </div>
+                </div>
+                <div id='omk'></div>
+          
+
+              </main>
+            </div>
+          </div>
+        <script src="asset/js/bootstrap.bundle.min.js" ></script>    
+      </body>
+    <script>
+        let gen = genF();    
+
+        gen.oOmk.getListeMonde(afficheListeMondes);
+
+        function afficheListeMondes(data){
+            d3.select('#ulMonde').selectAll('li').data(data).enter().append('li')
+                .append('a').attr('class',"dropdown-item").text(d=>d["o:title"])
+                .on('click',afficheMenuLegende);
+        }
+
+        function afficheMenuLegende(e, d){
+          let p = new Promise(resolve => {
+              resolve(gen.oOmk.showWait());
+            }).then(function(){
+              d3.selectAll('.titreMonde').html(d["dcterms:title"][0]["@value"])
+              initGen([d["dcterms:description"][0]["@value"]])
+            });
+        }
+
+        function initGen(vocabs) {
+          let p = new Promise(resolve => {
+              resolve(gen.init(vocabs));
+            }).then(function(){
+              //dimensionne le menu
+              gen.legende.afficheMenuLegende('#mnuLegende',gen, choixLegende);
+            });
+        }	
+
+
+        function choixLegende(e,d){
+          console.log(d);
+        }
+
+        function ajoutPapillon(){
+            let url = "https://samszo.univ-paris8.fr/ChaoticumPapillonae/CreaPapiDynaAnim.php?anim=0&larg=32&haut=32&id=logoPapi";
+            d3.xml(url)
+                .then(data => {
+                    d3.select('#logoPapi').node().append(data.documentElement);
+            });
+        }
+        ajoutPapillon();
+    </script>
+</html>

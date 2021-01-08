@@ -1,4 +1,4 @@
-class adln {
+class omk {
     constructor(params) {
         var me = this;
         this.cont = params.cont ? params.cont : d3.select('body');
@@ -90,9 +90,7 @@ class adln {
                 result = result.concat(rs)                
             })
             //regroupe les valeurs par class 
-            result = d3.nest()
-                .key(d=> d['o:resource_class'])
-                .entries(result); 
+            result = Array.from(d3.group(result, d => d['o:resource_class']));
 
             me.hideWait();               
             return result;
