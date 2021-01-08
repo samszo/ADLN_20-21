@@ -1,0 +1,99 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gfg: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocabFictionGenerator#> .
+
+<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocabDes#> a owl:Ontology;
+	dcterms:title "Digital Creation Workshop - Generic vocabulary".
+	
+	gfg:Model a rdfs:Class ;
+		rdfs:label "Model" ;
+		rdfs:domain o:ressource.
+		
+	gfg:Table a rdfs:Class ;
+		rdfs:label "World Table" ;
+		rdfs:domain o:ressource.
+
+	gfg:Media a rdfs:Class ;
+		rdfs:label "Media" ;
+		rdfs:domain o:ressource.
+		
+	gfg:Event a rdfs:Class ;
+		rdfs:label "Event" ;
+		rdfs:domain o:ressource.
+		
+	gfg:Information a rdfs:Class ;
+		rdfs:label "Information" ;
+		rdfs:domain o:ressource.
+		
+	gfg:Algorithm a rdfs:Class ;
+		rdfs:label "Algorithm" ;
+		rdfs:domain o:ressource.
+		
+	gfg:Story a rdfs:Class ;
+		rdfs:label "Story" ;
+		rdfs:domain o:ressource.
+		
+		
+		
+	gfg:name a rdf:Property ;
+		rdfs:label "name" ;
+		rdfs:domain o:ressource .
+		
+	gfg:class a rdf:Property ;
+		rdfs:label "class" ;
+		rdfs:domain o:ressource .
+
+	gfg:type a rdf:Property ;
+		rdfs:label "type" ;
+		rdfs:domain o:ressource .
+						
+	gfg:heuristics a rdf:Property ;
+		rdfs:label "heuristics" ;
+		rdfs:domain o:ressource .
+								
+	gfg:function a rdf:Property ;
+		rdfs:label "function" ;
+		rdfs:domain o:ressource .
+								
+	gfg:arguments a rdf:Property ;
+		rdfs:label "meaning of the arguments" ;
+		rdfs:domain o:ressource .
+	
+	gfg:requirements a rdf:Property ;
+		rdfs:label "requirements" ;
+		rdfs:domain o:ressource .
+								
+	gfg:finalStates a rdf:Property ;
+		rdfs:label "finalStates" ;
+		rdfs:domain o:ressource .
+							
+	gfg:schema a rdf:Property ;
+		rdfs:label "schema" ;
+		rdfs:domain o:ressource .
+								
+	gfg:nbParameters a rdf:Property ;
+		rdfs:label "nbParameters" ;
+		rdfs:domain o:ressource .
+
+	gfg:Parameters a rdf:Property ;
+		rdfs:label "Parameters" ;
+		rdfs:domain o:ressource .
+
+	gfg:tablesParameters a rdf:Property ;
+		rdfs:label "tablesParameters" ;
+		rdfs:domain o:ressource .
+
+	gfg:proba a rdf:Property ;
+		rdfs:label "proba" ;
+		rdfs:domain o:ressource .
+
+	gfg:sequence a rdf:Property ;
+		rdfs:label "sequence" ;
+		rdfs:domain o:ressource .
+
+	gfg:branchs a rdf:Property ;
+		rdfs:label "branches" ;
+		rdfs:domain o:ressource .								
