@@ -1,0 +1,89 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix des: <http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocabDes#> .
+
+<http://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/vocabDes#> a owl:Ontology ;
+	dcterms:title "Digital Creation Workshop - Dessetrousse" .
+	
+	des:Personnage a rdfs:Class ;
+		rdfs:label "Personnage" ;
+		rdfs:domain o:ressource .
+		
+	des:Lieu a rdfs:Class ;
+		rdfs:label "Lieu" ;
+		rdfs:domain o:ressource .
+
+	des:lieuxPossibles a rdfs:Class ;
+		rdfs:label "lieuxPossibles" ;
+		rdfs:domain o:ressource .
+
+	des:Communication a rdfs:Class ;
+		rdfs:label "Communication" ;
+		rdfs:domain o:ressource .
+	
+	des:Event a rdfs:Class ;
+		rdfs:label "Event" ;
+		rdfs:domain o:ressource .
+		
+
+	des:nom a rdf:Property ;
+		rdfs:label "nom" ;
+		rdfs:domain o:ressource .
+		
+	des:voleur a rdf:Property ;
+		rdfs:label "voleur" ;
+		rdfs:domain o:ressource .	
+
+	des:kfP_L a rdf:Property ;
+		rdfs:label "kfP_L" ;
+		rdfs:domain o:ressource .
+
+	des:jewel a rdf:Property ;
+		rdfs:label "a les bijoux" ;
+		rdfs:domain o:ressource .
+
+	des:alive a rdf:Property ;
+		rdfs:label "en vie" ;
+		rdfs:domain o:ressource .
+
+	des:malade a rdf:Property ;
+		rdfs:label "malade" ;
+		rdfs:domain o:ressource .
+
+	des:sickLevel a rdf:Property ;
+		rdfs:label "niveau maladie" ;
+		rdfs:domain o:ressource .
+
+	des:cardiaque a rdf:Property ;
+		rdfs:label "cardiaque" ;
+		rdfs:domain o:ressource .
+		
+	des:nomL a rdf:Property ;
+		rdfs:label "nomL" ;
+		rdfs:domain o:ressource .	
+		
+	des:bijoux_presents a rdf:Property ;
+		rdfs:label "bijoux_présents" ;
+		rdfs:domain o:ressource .	
+
+	des:kfC_L1 a rdf:Property ;
+		rdfs:label "kfC_L1" ;
+		rdfs:domain o:ressource .
+		
+	des:kfC_L2 a rdf:Property ;
+		rdfs:label "kfC_L2" ;
+		rdfs:domain o:ressource .	
+
+	des:kflp_P a rdf:Property ;
+		rdfs:label "kflp_P" ;
+		rdfs:domain o:ressource .
+
+	des:kflp_L a rdf:Property ;
+		rdfs:label "kflp_L" ;
+		rdfs:domain o:ressource .
+
+
+
