@@ -47,15 +47,17 @@ function genF(voca){ // module de génération de fiction
 	retour.Monde = Monde; 
 	retour.Event = Event; 
 	retour.story = story; 
-	retour.messages = messages; // propriété non documentée dans l'aide -- pour déboggage 
+	
 	
 	// récupération des fonctions utiles
 	retour.finie = finie; 
 	retour.copieTable = copieTable; 
+	retour.getMessages = getMessages; // propriété non documentée dans l'aide -- pour déboggage 
+	retour.setMessages = setMessages; // propriété non documentée dans l'aide -- pour déboggage
 	retour.getEntity = Entity; 
 	//retour.getListeProp = tableProp;
 	retour.verifie = verifieReq; 
-	retour.affecteValeur = affecteValeurProb; 
+	retour.affecteValeurItemMonde = affecteValeurProb; // anciennement retour.affecteValeur
 	retour.showData = showData; 
 	retour.faire = faireAvecFin; 
 	retour.faireAvecProba = faireAvecProba; 
@@ -90,6 +92,14 @@ function genF(voca){ // module de génération de fiction
 
 	function finie(){
 		return fin;
+	}
+	
+	function getMessages(){
+		return messages;
+	}
+	
+	function setMessages(valeur){
+		messages = valeur;
 	}
 	
 	function copieTable(table){
@@ -251,7 +261,6 @@ function genF(voca){ // module de génération de fiction
 		return true;
 	}
 	
-// --------------------	 fonctions privées
 	
 	function init(listeVocas){
 		let rM = recup(listeVocas);		
@@ -290,6 +299,7 @@ function genF(voca){ // module de génération de fiction
 		});
 	}
 
+// --------------------	 fonctions privées
 
 	// fonctions relatives au traitement des évènements
 	
