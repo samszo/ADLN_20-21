@@ -77,7 +77,7 @@
                         <button type="button" class="btn btn-primary"  onclick="afficheEvents()" >Evènements</button>
                         <div class="btn-group" role="group">
                           <button id="btnGroupVerticalDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hisoires
+                            Histoires
                           </button>
                           <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="margin: 0px;">
                             <li><a class="dropdown-item" href="#">Créer</a></li>
@@ -125,15 +125,17 @@
         }
 
         function afficheMenuMonde(e, d){
+          gen.oOmk.showWait();
           let p = new Promise(resolve => {
-              resolve(gen.oOmk.showWait());
+              resolve(initGen([d["dcterms:description"][0]["@value"]]));
             }).then(function(){
-              d3.selectAll('.titreMonde').html(d["dcterms:title"][0]["@value"])
-              initGen([d["dcterms:description"][0]["@value"]])
+              d3.selectAll('.titreMonde').html(d["dcterms:title"][0]["@value"])              
             });
         }
 
         function initGen(vocabs) {
+          d3.select('#omk').selectAll("*").remove();
+          d3.select('#navFiltres').selectAll("*").remove();
           let p = new Promise(resolve => {
               resolve(gen.init(vocabs));
             }).then(function(){
