@@ -260,6 +260,10 @@ class omk {
 
         }
 
+        this.getUrlItemAdmin = function(){
+            return me.apiUrl.replace('api/', 'admin/')+'item/';
+        }
+
         function getTypeVals(d) {
             let vals = [];
             if(d){

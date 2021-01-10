@@ -12,8 +12,8 @@
         <script src="asset/js/bootstrap-treeview.min.js"></script>    
 
         <script src="asset/js/omk.js"></script>
-        <script src="asset/js/legende.js"></script>
-        <script src="asset/js/fictionGene-v4.js"></script>
+        <script src="asset/js/fictionManutention.js"></script>
+        <script src="asset/js/fictionGene-v5.js"></script>
         <script src="asset/js/afficheSVG.js"></script>
 
         <link href="asset/css/bootstrap.min.css" rel="stylesheet" >        
@@ -21,9 +21,27 @@
         <link href="asset/css/bootstrap-treeview.min.css" rel="stylesheet" >        
 
         <style>
-          #mnuLegende{
+          #mnuMonde{
             overflow: scroll;
           }
+
+          .row-fluid{
+              white-space: nowrap;
+          }
+          .row-fluid .col-lg-4{
+              display: inline-block;
+          } 
+          .lstObjetEtatMonde{
+            overflow: scroll;
+          }
+          .card-text{
+            overflow:scroll;
+          }
+          .card{
+            max-height: 300px;
+            overflow:scroll;
+          }
+
         </style>
 
     </head>
@@ -33,8 +51,7 @@
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-            <ul class="navbar-nav px-3">
+          <ul class="navbar-nav px-3">
               <li class="nav-item text-nowrap">
                 <div id="logoPapi"></div>
               </li>
@@ -44,51 +61,70 @@
             <div class="row">                
               <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                          Liste des mondes
-                      </button>
-                      <ul id='ulMonde'class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      </ul>
-                    </div>
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                      <span>Etat initial du Monde</span>
-                    </h6>                    
-                    <div id='mnuLegende'></div>
+
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Selectionner un monde
+                    </button>
+                    <ul id='ulMonde'class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    </ul>
+                  </div>
+                  <h4 class='titreMonde' ></h4>      
+                  <div id='mnuMonde' style="display:none">
+                                        
+                      <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <button type="button" class="btn btn-primary" onclick="afficheEtatInitial()" >Etat Initial</button>
+                        <button type="button" class="btn btn-primary"  onclick="afficheEvents()" >Evènements</button>
+                        <div class="btn-group" role="group">
+                          <button id="btnGroupVerticalDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Hisoires
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="margin: 0px;">
+                            <li><a class="dropdown-item" href="#">Créer</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                          </ul>
+                        </div>
+
+                      </div>
+                    
+                  </div>
 
                 </div>
               </nav>
           
-              <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                  <h1 class='titreMonde' class="h2"></h1>
-                  <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                    </div>
-                  </div>
-                </div>
-                <div id='omk'></div>
-          
+              <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        
 
+                  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navFiltres" aria-controls="navFiltres" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navFiltres">
+                        <ul id="navFiltresList" class="navbar-nav">
+                        </ul>
+                      </div>
+                    </div>
+                  </nav>
+                  
+                <div id='omk'></div>          
               </main>
             </div>
           </div>
         <script src="asset/js/bootstrap.bundle.min.js" ></script>    
       </body>
     <script>
-        let gen = genF();    
+        let gen = genF(), manu = new fictionManutention(gen);    
 
         gen.oOmk.getListeMonde(afficheListeMondes);
 
         function afficheListeMondes(data){
             d3.select('#ulMonde').selectAll('li').data(data).enter().append('li')
                 .append('a').attr('class',"dropdown-item").text(d=>d["o:title"])
-                .on('click',afficheMenuLegende);
+                .on('click',afficheMenuMonde);
         }
 
-        function afficheMenuLegende(e, d){
+        function afficheMenuMonde(e, d){
           let p = new Promise(resolve => {
               resolve(gen.oOmk.showWait());
             }).then(function(){
@@ -101,9 +137,20 @@
           let p = new Promise(resolve => {
               resolve(gen.init(vocabs));
             }).then(function(){
-              //dimensionne le menu
-              gen.legende.afficheMenuLegende('#mnuLegende',gen, choixLegende);
+              //affiche le menu du monde
+              manu.init();
+              manu.afficheMenuMonde('#mnuMonde',{'clickCard':choixLegende});
             });
+        }	
+
+        function afficheEtatInitial() {
+          //affiche l'état initial
+          manu.afficheEtatMondeCartes(['#omk','#navFiltres'],{'clickCard':choixLegende});
+        }
+
+        function afficheEvents() {
+          //affiche les événements
+          manu.afficheEventsCartes(['#omk','#navFiltres'],{'clickCard':choixLegende});
         }	
 
 
