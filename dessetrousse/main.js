@@ -32,6 +32,7 @@
 	}
 	
 	nonFin();
+	console.log(gen.story);
 	
 function nonFin (){
 	let retour = gen.finie();
