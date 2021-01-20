@@ -1,16 +1,23 @@
 class fictionManutention {
     constructor(gen) {
         var me = this;
+        this.titreMonde = "";
         this.gen = gen;
-        let svg, global, margin=6, dataMonde, dataEvents, dataFiltre, keyType, noMedia='asset/svg/wait-pacman.svg'
-        ,color = d3.scaleSequential().interpolator(d3.interpolateWarm);
+        let svg, global, margin=6, dataMonde, dataEvents, dataFiltre, dataStory, keyType, noMedia='asset/svg/wait-pacman.svg'
+        ,color = d3.scaleSequential().interpolator(d3.interpolateWarm)
+        ,searchTerm;
 
         this.init = function(){
-            dataMonde = getLigneMonde(me.gen.getMonde());
-            dataEvents = me.gen.getEvents();
+            dataMonde = getLigneMonde(me.gen.Monde);
+            dataEvents = me.gen.Evt;
+            dataStory = me.gen.Story;
             //récupère les type d'objets
             dataFiltre = getDataFiltre(dataMonde.concat(dataEvents));
-            //définition de la onction de colorisation
+            setColors();
+        }
+
+        function setColors(){
+            //définition de la fonction de colorisation
             color.domain([0,dataFiltre.length]);
             keyType = [];
             dataFiltre.forEach((f,i) => {keyType[f.text]=i});            
@@ -369,6 +376,48 @@ class fictionManutention {
           </div> 
           */       
 
+        }
+        /*Pour gérer l'autocomplétion
+        ajouter nécessairement :
+        jquery-ui.js
+        jquery-ui.css
+        */
+        this.setAutoComplete = function (idCont, fct){
+
+            let cont = d3.select('#'+idCont);
+            cont.append('label').attr('for',"ac"+idCont).attr('class',"form-label").text('Sélectionner un élément');
+            cont.append('input').attr('class',"form-control").attr('list',"dl"+idCont)
+                .attr('id',"ac"+idCont).attr('placeholder','saisir...')
+                .on('change',function() {
+                    fct(this.value);
+                  });
+            cont.append('datalist').attr('id',"dl"+idCont)
+                .selectAll('option').data(idCont == 'sltEvents' ? dataEvents : dataMonde).enter().append('option')
+                .attr('value',d=>d.Title)
+                .on('click',d=>{
+                    fct(d);
+                });
+        }
+
+        this.exporterMonde = function(){
+            const filename = me.titreMonde+'.json';
+            const jsonStr = JSON.stringify({'titre':me.titreMonde,'monde':me.gen.Monde,'events':me.gen.Evt,'story':dataStory});
+            
+            let element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);            
+            element.click();            
+            document.body.removeChild(element);
+        }
+
+        this.importerMonde = function(json){
+            me.gen.Monde=json.monde;
+            me.gen.Evt=json.events
+            dataStory=json.story;
+            me.titreMonde = json.titre;
+            me.init();
         }
 
         me.init();

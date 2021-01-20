@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +7,18 @@
         <meta name="description" content="ATELIER DISPOSITIFS LITTÉRAIRES NUMÉRIQUES">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="asset/js/d3.v6.min.js"></script>    
-        <script src="asset/js/jquery-3.5.1.min.js"></script>    
-        <script src="asset/js/w2ui-1.5.rc1.min.js"></script>    
-        <script src="asset/js/bootstrap-treeview.min.js"></script>    
-
         <script src="asset/js/omk.js"></script>
         <script src="asset/js/fictionManutention.js"></script>
-        <script src="asset/js/fictionGene-v5.js"></script>
-        <script src="asset/js/afficheSVG.js"></script>
+        <script src="asset/js/fictionMedia.js"></script>
+        <script src="asset/js/fictionGene-v6.js"></script>
+        <script src="asset/js/menuSunburst.js"></script>
 
         <link href="asset/css/bootstrap.min.css" rel="stylesheet" >        
-        <link href="asset/css/w2ui-1.5.rc1.min.css" rel="stylesheet" >        
-        <link href="asset/css/bootstrap-treeview.min.css" rel="stylesheet" >        
 
         <style>
+          main > .container {
+            padding: 60px 15px 0;
+          }
           #mnuMonde{
             overflow: scroll;
           }
@@ -41,82 +39,186 @@
             max-height: 300px;
             overflow:scroll;
           }
-
         </style>
 
     </head>
-    <body>
-        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Gestion des Mondes</a>
-            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          <ul class="navbar-nav px-3">
-              <li class="nav-item text-nowrap">
-                <div id="logoPapi"></div>
-              </li>
-            </ul>
-        </header>
+    <body class="d-flex flex-column h-100">
+
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
         <div class="container-fluid">
-            <div class="row">                
-              <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
+          <a class="navbar-brand" href="#">Gestion des mondes</a>
+          <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Selectionner un monde
-                    </button>
-                    <ul id='ulMonde'class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    </ul>
-                  </div>
-                  <h4 class='titreMonde' ></h4>      
-                  <div id='mnuMonde' style="display:none">
-                                        
-                      <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                        <button type="button" class="btn btn-primary" onclick="afficheEtatInitial()" >Etat Initial</button>
-                        <button type="button" class="btn btn-primary"  onclick="afficheEvents()" >Evènements</button>
-                        <div class="btn-group" role="group">
-                          <button id="btnGroupVerticalDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Histoires
-                          </button>
-                          <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="margin: 0px;">
-                            <li><a class="dropdown-item" href="#">Créer</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                          </ul>
-                        </div>
+          <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Selectionner un monde
+                </button>
+                <ul id='ulMonde'class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                </ul>
+              </div>                        
+            </li>    
+              <li class="nav-item">
+                <button class="btn btn-outline-success me-2" id="btnImportMonde" type="button" >Importer un monde</button>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="#">&nbsp; <span class='titreMonde' ></span></a>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-success me-2" id="btnExportMonde" type="button" >Exporter le monde</button>
+              </li>
 
-                      </div>
-                    
-                  </div>
-
+            </ul>
+            <form class="d-flex">
+              <div id="logoPapi"></div>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <main class="flex-shrink-0">
+        <div class="container-fluid" style="margin-top: 56px;">
+          <div class="row">
+            <div id="sidebarMenu" class="col-md-6 ms-sm-auto col-lg-2 sidebar">
+              <div class="position-sticky pt-3">
+                <div id='mnuMonde' style="display:none;">
+                  
                 </div>
-              </nav>
-          
-              <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+              </div>
+            </div>
+            <div class="col-md-6 ms-sm-auto col-lg-10 px-md-4">
         
 
-                  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div class="container-fluid">
-                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navFiltres" aria-controls="navFiltres" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navFiltres">
-                        <ul id="navFiltresList" class="navbar-nav">
-                        </ul>
-                      </div>
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navFiltres" aria-controls="navFiltres" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navFiltres">
+                    <ul id="navFiltresList" class="navbar-nav">
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+              
+              <div id='omk'></div>          
+              
+            </div>
+
+          </div>   
+        </div>
+      </main>
+
+          <footer class="footer mt-auto py-3 bg-dark">
+            <div class="container">
+              <img src='asset/svg/logo-paragraphe-blanc.svg' style="height: 32px;" />
+              <span class="text-muted">Philippe Bootz & Samuel Szoniecky</span>
+            </div>
+          </footer>
+
+        <!-- fenêtre modal pour l'ajout de scenario -->
+        <div id='modalAjoutScenarii' class="modal" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Ajout d'un scenario pour :<span class='titreMonde' ></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Ajouter une scène</a>
+
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li id='sltEvents' class="nav-item">
+
+
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                      </ul>
+                      <form class="d-flex">
+                        <button class="btn btn-outline-success" type="submit">Ajouter</button>
+                      </form>
                     </div>
-                  </nav>
-                  
-                <div id='omk'></div>          
-              </main>
+                  </div>
+                </nav>
+                            
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
             </div>
           </div>
+        </div>
+    <!-- Fenêtre modale pour l'affichae choix d'un fichier -->
+    <div class="modal fade" id="modGetFic" tabindex="-1" role="dialog" aria-labelledby="modGetFicLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modGetFicLabel">Importer un monde<span class="modalTitle"
+                          id="modGetFicInt"></span></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label">Choisissez une fichier .json</label>
+                    <input class="form-control" type="file" id="fileImport">
+                  </div>                  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button id="btnValidImport" type="button" class="btn btn-primary">Valider</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
         <script src="asset/js/bootstrap.bundle.min.js" ></script>    
       </body>
     <script>
-        let gen = genF(), manu = new fictionManutention(gen);    
-
+        let gen = new fictionGene({}), manu = new fictionManutention(gen)
+        , modalAjoutScenar = new bootstrap.Modal(document.getElementById('modalAjoutScenarii'),{keyboard: true})
+        , modalImportMonde = new bootstrap.Modal(document.getElementById('modGetFic'),{keyboard: true})
+        ;
+        //initialisation de la liste des mondes
         gen.oOmk.getListeMonde(afficheListeMondes);
+
+        //gestion des événements
+        d3.select('#btnExportMonde').style('display','none')
+            .on('click',manu.exporterMonde);
+        d3.select('#btnImportMonde').on('click',function(){modalImportMonde.show()});            
+        d3.select('#btnValidImport').on('click',function (evt, d) {
+                fr = new FileReader();
+                fr.onload = receivedText;
+                fr.readAsText(d3.select('#fileImport').node().files[0]);
+                function receivedText(e) {
+                    try {
+                      let monde = JSON.parse(e.target.result);
+                      manu.importerMonde(monde);
+                      showGen();
+                      modalImportMonde.hide();
+                    } catch (error) {
+                        console.log('Les données ne sont pas au bon format.');
+                    }
+                }
+            })
+
 
         function afficheListeMondes(data){
             d3.select('#ulMonde').selectAll('li').data(data).enter().append('li')
@@ -125,36 +227,51 @@
         }
 
         function afficheMenuMonde(e, d){
-          gen.oOmk.showWait();
-          let p = new Promise(resolve => {
-              resolve(initGen([d["dcterms:description"][0]["@value"]]));
-            }).then(function(){
-              d3.selectAll('.titreMonde').html(d["dcterms:title"][0]["@value"])              
-            });
+            initGen(d["dcterms:description"][0]["@value"],d["dcterms:title"][0]["@value"]);
         }
 
-        function initGen(vocabs) {
+        function initGen(vocabs,monde) {
           d3.select('#omk').selectAll("*").remove();
-          d3.select('#navFiltres').selectAll("*").remove();
+          d3.select('#navFiltres').selectAll("*").remove();          
           let p = new Promise(resolve => {
               resolve(gen.init(vocabs));
             }).then(function(){
-              //affiche le menu du monde
+              manu.titreMonde = monde;
               manu.init();
-              manu.afficheMenuMonde('#mnuMonde',{'clickCard':choixLegende});
+              showGen();
             });
+          console.log('Attente Monde.initGen');
+          gen.oOmk.showWait();               
+          console.log('Attente Monde.initGen');
         }	
 
-        function afficheEtatInitial() {
+        function showGen(){
+          d3.select('#mnuMonde').selectAll('svg').remove();          
+          d3.selectAll('.titreMonde').html(manu.titreMonde);              
+          d3.select('#btnExportMonde').style('display','block')
+          //affiche le menu du monde
+          manu.afficheMenuMonde('#mnuMonde',{'clickCard':choixLegende});
+          chargeMenu();
+          manu.setAutoComplete('sltEvents',afficheEvent);
+        }
+
+        function afficheEvent(item){
+          console.log(item);
+        }
+
+        function afficheEtatInitial(d) {
           //affiche l'état initial
           manu.afficheEtatMondeCartes(['#omk','#navFiltres'],{'clickCard':choixLegende});
         }
 
-        function afficheEvents() {
+        function afficheEvents(d) {
           //affiche les événements
           manu.afficheEventsCartes(['#omk','#navFiltres'],{'clickCard':choixLegende});
         }	
-
+        function ajouterScenarii(d){
+          console.log(d);
+          modalAjoutScenar.show();
+        }
 
         function choixLegende(e,d){
           console.log(d);
@@ -168,5 +285,12 @@
             });
         }
         ajoutPapillon();
+
+        function chargeMenu(){
+          d3.json('asset/data/menuMondes.json')
+                .then(data => {
+                    let menu = new menuSunburst({'idCont':'mnuMonde','data':data});//
+            });
+        }
     </script>
 </html>

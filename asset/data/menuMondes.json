@@ -1,0 +1,29 @@
+{
+    "name": "menu",
+    "color": "magenta",
+    "children": [{
+            "name": "Etat initial",
+            "color": "yellow",
+            "size": 1,
+            "fct": "afficheEtatInitial"
+        },
+        {
+            "name": "Evènements",
+            "color": "yellow",
+            "size": 1,
+            "fct": "afficheEvents"
+        },
+        {
+            "name": "Scenarii",
+            "color": "yellow",
+            "size": 1,
+            "children": [{
+                "name": "Ajouter",
+                "color": "red",
+                "size": 1,
+                "fct": "ajouterScenarii"
+            }
+            ]    
+        }
+    ]
+}

@@ -1,79 +1,30 @@
-function genF(voca){ // module de génération de fiction
-// variables publiques
-	let Monde = []; // table des tables du monde et évènements récupérées de omeka. Toutes les clefs sont obligatoires et doivent avoir une valeur
-	let Event = []; // table des évènements
-	let story = []; //table contenant l'enchaînement des états du monde et évènements de l'histoire
-	let messages = false; // permet d'afficher des messages d'erreur dans la console
-	let fin = false; // plus aucun évènement n'est effectué lorsque fin = true : fin de l'histoire
-	let affichage = false; // nécessaire car l'affichage est asynchrone
-	
-// variables privées
-	let infoFin = false; // paramètre qui évite de répéter le message de fin à chaque fois qu'un évènement suit l'évènement de fin. Cette variable n'est utilisée que lorsque messages = true
-	
-	//let listeID; // liste des propriétés ID des tables du monde
-	
-	
-	let oOmk = new omk({
-            cont:d3.select('#omk')
-            , apiUrl:"https://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/omk/api/"
-            , waitUrl:"asset/svg/wait-pacman.svg"
+class fictionGene {
+    constructor(params) {
+        var me = this;
+        this.Monde = []; // table des tables du monde et évènements récupérées de omeka. Toutes les clefs sont obligatoires et doivent avoir une valeur
+        this.Evt = []; // table des évènements
+        this.Story = []; //table contenant l'enchaînement des états du monde et évènements de l'histoire
+        this.messages = true; // permet d'afficher des messages d'erreur dans la console
+        this.fin = false; // plus aucun évènement n'est effectué lorsque fin = true : fin de l'histoire
+        this.vocab = params.vocab ? params.vocab : false;
+        this.oOmk = new omk({
+            cont:d3.select(params.idContOmk ? '#'+params.idContOmk : 'body')
+            , apiUrl:params.apiOmk ? params.apiOmk : "https://lire-ensemble.univ-paris8.fr/DigitalCreationWorkshop/omk/api/"
+            , waitUrl: params.waitUrl ? params.waitUrl : "asset/svg/wait-pacman.svg"
         });
+        this.oMedia = new fictionMedia({});
+
 	
-	let genSVG = genFMEDIA ();
-	
-	let listeVocas = Array.from(arguments);
-	if(listeVocas.length){
-		init(listeVocas);
-	
+        // variables privées
+        let infoFin = false; // paramètre qui évite de répéter le message de fin à chaque fois qu'un évènement suit l'évènement de fin. Cette variable n'est utilisée que lorsque messages = true
+        	
 		/* marche mais inutile, utilisé uniquement dans verifieMonde
 		let listeKeyDuMonde = [];
 		Monde.forEach(t => {// t est une table du monde
 			let tt =Object.keys(t.values[0]); // tt est la liste des prop des items de la table
 			listeKeyDuMonde.push(tt);
 		});
-		*/
-		
-		story.push(JSON.parse(JSON.stringify(Monde))); // initialise l'histoire avec l'état initial du monde
-		
-		console.log ("tables initiales du monde puis des évènements");
-		console.log (JSON.parse(JSON.stringify(Monde)));
-		console.log(Event);
-	}
-	
-	let retour = {};
-	//retour.test = test; // pour déboggage : renommer n'importe quelle fonction "test" permet de la tester depuis le programme principal
-	
-	//récupération des variables utiles 
-	retour.Monde = Monde; 
-	retour.Event = Event; 
-	retour.story = story; 
-	retour.messages = messages; // propriété non documentée dans l'aide -- pour déboggage 
-	
-	// récupération des fonctions utiles
-	retour.finie = finie; 
-	retour.copieTable = copieTable; 
-	retour.getEntity = Entity; 
-	//retour.getListeProp = tableProp;
-	retour.verifie = verifieReq; 
-	retour.affecteValeur = affecteValeurProb; 
-	retour.showData = showData; 
-	retour.faire = faireAvecFin; 
-	retour.faireAvecProba = faireAvecProba; 
-	retour.affiche = afficheSVG; 
-	retour.efface = effaceSVG; 
-	retour.getAffichage = genSVG.getAffichage;
-	retour.affichagePeriodique = genSVG.affichagePeriodique; 
-	retour.getItem = getItem;	 
-	//retour.definitID = definitID;
-	
-	retour.oOmk = oOmk;
-	retour.init = init;
-	retour.getMonde = getMonde;
-	retour.getEvents = getEvents;
-	retour.getStory = getStory;
-
-	return retour;
-	
+		*/	
 		
 // ----------------- fonctions publiques
 /*
@@ -84,20 +35,9 @@ function genF(voca){ // module de génération de fiction
 		listeID = args;
 	}
 */
-	function getMonde(){
-		return Monde;
-	}
-
-	function getEvents(){
-		return Event;
-	}
-
-	function getStory(){
-		return story;
-	}
 
 	function finie(){
-		return fin;
+		return me.fin;
 	}
 	
 	function copieTable(table){
@@ -116,9 +56,9 @@ function genF(voca){ // module de génération de fiction
 			console.log ("pas de média à afficher pour "+table+", "+prop+", "+nom);
 		}
 		if (Array.isArray(item.media)){
-			genSVG.affiche(item.media[index]);
+			me.oMedia.chargeSVG(item.media[index]);
 		}else{
-			genSVG.affiche(item.media);
+			me.oMedia.chargeSVG(item.media);
 		}
 	}
 	
@@ -130,21 +70,21 @@ function genF(voca){ // module de génération de fiction
 		let timer = setInterval(effacer, 50,nb);
 		
 		function effacer(){
-			if (genSVG.getAffichage()){
-				genSVG.efface();
+			if (me.oMedia.getAffichage()){
+				me.oMedia.effaceSVG();
 				clearInterval(timer);
 				return true;
 			}else{
 				nb++;
 				if (nb ==20*t){
-					if (messages) {console.log ("effacement avorté");}
+					if (me.messages) {console.log ("effacement avorté");}
 					clearInterval(timer);
 					return false;
 				}
 			}
 		}
 	
-		genSVG.efface();
+        me.oMedia.effaceSVG();
 	}
 	
 	function getItem(table, prop, nom) {
@@ -154,9 +94,9 @@ function genF(voca){ // module de génération de fiction
 	//nom (string) est la valeur de la propriété prop de l'item recherché
 	
 		if (table === "Event"){// média associé à un évènement
-			for (let i = 0; i<Event.length;i++){
-				if (Event[i].function === nom){
-					return Event[i];
+			for (let i = 0; i<me.Evt.length;i++){
+				if (me.Evt[i].function === nom){
+					return me.Evt[i];
 				}
 			}
 			
@@ -181,7 +121,7 @@ function genF(voca){ // module de génération de fiction
 	// retourne true si une a eu lieu
 	
 		let NewEvent = {};
-		Event.splice(0,0,NewEvent); // ajout du nouvel évènemment à la table des évènements
+		me.Evt.splice(0,0,NewEvent); // ajout du nouvel évènemment à la table des évènements
 		NewEvent.function = "NE**";
 		NewEvent.nbParameters = 0;
 		NewEvent.tablesParameters = [];
@@ -214,14 +154,14 @@ function genF(voca){ // module de génération de fiction
 		}
 		NewEvent.branches = branches;
 		let resultat = faireAvecFin(["NE**"],false);
-		Event.splice(0,1); // retrait du nouvel élément de la liste des évènements
+		me.Evt.splice(0,1); // retrait du nouvel élément de la liste des évènements
 		return resultat; // indique l'état de l'exécution
 	}
 	
 	function faireAvecFin(args){ // exécute un évènement en tenant compte de l'évènement de fin
 	// args est une liste dont le 1° élément est le nom de la fonction de l'évènement, 
 	//les autres étant les paramètres utilisés par la fonction de l'évènement
-		if (!fin){ // fin de l'histoire
+		if (!me.fin){ // fin de l'histoire
 			return(faire(args));
 		}else{
 			if (!infoFin){
@@ -234,11 +174,11 @@ function genF(voca){ // module de génération de fiction
 	}
 	
 	function showData(voca){// affiche les items omeka d'un vocabulaire dans le html
-		oOmk.showData(voca);
+		me.oOmk.showData(voca);
 	}
 	
 	function Entity(nom) {// retourne une table Entité du monde
-		return tableKey(Monde, nom);
+		return tableKey(me.Monde, nom);
 	}
 	
 	function affecteValeurProb (tableMonde, propID, valID, propAAffecter, valAAffecter){
@@ -258,44 +198,53 @@ function genF(voca){ // module de génération de fiction
 		item[0][propAAffecter] = valAAffecter;
 		return true;
 	}
-	
-// --------------------	 fonctions privées
-	
-	function init(listeVocas){
-		let rM = recup(listeVocas);		
-		console.log("données récupérées de Omeka :");
-		console.log(rM);
-		let tables = nettoye(rM);
-		let clefs = ["sequence","branches","tablesParameters","requirements","finalStates"];
 		
-		// séparation des tables du monde de la table des évènements
-		Monde = tables.filter(function(O){
-			if (O.key !== "Event"){
-				return O;
-			}else{								
-				Event= O.values;
-			}
-		});	
-		Event.forEach(e => { // e est un évènement
-			clefs.forEach(c => { // c est une clef
-				switch (typeof (e[c])) {
-					case "string":
-						let v = e[c];
-						e[c]=[v];
-						break;
-					case "object":
-						if (!Array.isArray(e[c])){
-							let v = e[c];
-							e[c]=[v];
-						}
-						break;
-					case "undefined":
-						e[c] = [];
-						break;
-					default:
-				}
-			});		
-		});
+    this.init = function(vocab){
+        me.vocab = vocab;
+        let p = new Promise(resolve => {
+            resolve(recup(me.vocab));
+          }).then(function(d){
+            console.log("données récupérées de Omeka :");
+            console.log(me.oOmk.itemsVocab);
+            let tables = nettoye(me.oOmk.itemsVocab);
+            let clefs = ["sequence","branches","tablesParameters","requirements","finalStates"];
+            
+            // séparation des tables du monde de la table des évènements
+            me.Monde = tables.filter(function(O){
+                if (O.key !== "Event"){
+                    return O;
+                }else{								
+                    me.Evt= O.values;
+                }
+            });	
+            me.Evt.forEach(e => { // e est un évènement
+                clefs.forEach(c => { // c est une clef
+                    switch (typeof (e[c])) {
+                        case "string":
+                            let v = e[c];
+                            e[c]=[v];
+                            break;
+                        case "object":
+                            if (!Array.isArray(e[c])){
+                                let v = e[c];
+                                e[c]=[v];
+                            }
+                            break;
+                        case "undefined":
+                            e[c] = [];
+                            break;
+                        default:
+                    }
+                });		
+            });
+            me.Story.push(JSON.parse(JSON.stringify(me.Monde))); // initialise l'histoire avec l'état initial du monde
+
+            console.log ("tables initiales du monde puis des évènements");
+            console.log (JSON.parse(JSON.stringify(me.Monde)));
+            console.log(me.Evt);
+        });
+        console.log('Attente fictionGene.init()');
+    
 	}
 
 
@@ -327,7 +276,7 @@ function genF(voca){ // module de génération de fiction
 			
 		// vérification du critère de fin d'histoire
 			if (eventEnCours.function == "*"){
-				fin = true;
+				me.fin = true;
 				return true;
 			}
 						
@@ -374,7 +323,7 @@ function genF(voca){ // module de génération de fiction
 					index++;
 				});
 				let rand = Math.random()*p;
-				if (messages){console.log("rand = "+rand);}
+				if (me.messages){console.log("rand = "+rand);}
 				let i = 0;
 				while (i < tableProbas.length) {
 					if (rand > tableProbas[i]) {
@@ -400,7 +349,7 @@ function genF(voca){ // module de génération de fiction
 			let tM;
 			story.push(args);
 			if (resultat && (eventEnCours.type == "élémentaire" || eventEnCours.type == "pg")){
-				tM = JSON.parse(JSON.stringify(Monde));
+				tM = JSON.parse(JSON.stringify(me.Monde));
 				story.push(tM);
 			}
 		return resultat; 
@@ -437,10 +386,10 @@ function genF(voca){ // module de génération de fiction
 			if (!resoutValeurItem(f)){return false;}
 			
 			// détermination de l'item de l'objet réel à modifier
-			tableDuMonde = tableKey(Monde,f.item.key);
+			tableDuMonde = tableKey(me.Monde,f.item.key);
 			let t = tableProp(tableDuMonde,f.item.prop,f.item.valeur);
 			if (t.length == 0){
-				if (messages){
+				if (me.messages){
 					console.log("valeur : "+f.item.valeur+" incorrecte pour la propriété : "+f.item.prop+ " dans l'item du finalState "+numF-1+" de l'évènement "+eventEnCours.function);
 				}
 				infoErreur();
@@ -488,14 +437,14 @@ function genF(voca){ // module de génération de fiction
 						return true;
 						break;
 					}else{
-						if (messages){
+						if (me.messages){
 							console.log("la propriété "+Obj[v.prop]+" de l'objet "+Obj+" n'est pas un Array");
 						}
 						return false;
 						break;
 					}
 				default:
-					if (messages){
+					if (me.messages){
 						console.log ("type : "+v.type+" non prévu dans les final states ");
 					}
 					return "faireErreur";
@@ -505,13 +454,13 @@ function genF(voca){ // module de génération de fiction
 		function trouveEvent(){
 		// détermine l'event évènement impliqué
 		// retourne true ou false selon le résultat
-			for(var i =0; i < Event.length; i++){
-				if(Event[i].function === args[0]) {
+			for(var i =0; i < me.Evt.length; i++){
+				if(me.Evt[i].function === args[0]) {
 					break;
 				}
 			}
-			if (i==Event.length){
-				if (messages){
+			if (i==me.Evt.length){
+				if (me.messages){
 					console.log ("l'évènement demandé dans faire n'existe pas ou l'argument n'est pas une liste");
 				}
 				eventEnCours = null;
@@ -519,7 +468,7 @@ function genF(voca){ // module de génération de fiction
 				infoErreur();
 				return false;
 			}
-			eventEnCours = JSON.parse(JSON.stringify(Event[i])); // clone l'évènement, y compris l'ensemble de ses propriétés et valeurs, donc aussi la table des entités du monde
+			eventEnCours = JSON.parse(JSON.stringify(me.Evt[i])); // clone l'évènement, y compris l'ensemble de ses propriétés et valeurs, donc aussi la table des entités du monde
 			return true;
 		}
 	
@@ -532,9 +481,9 @@ function genF(voca){ // module de génération de fiction
 			
 			// détermination de l'objet réel dans la table du monde			
 			
-			tableDuMonde = tableKey(Monde,r.item.key);// table des objets du monde impliquée			
+			tableDuMonde = tableKey(me.Monde,r.item.key);// table des objets du monde impliquée			
 			if (tableDuMonde.length == 0){
-				if (messages){
+				if (me.messages){
 					console.log("valeur : "+r.item.valeur+" incorrecte pour la propriété : "+r.item.prop+ " dans l'item du requirement "+numReq-1+" de l'évènement "+eventEnCours.function);
 				}
 				infoErreur();
@@ -543,7 +492,7 @@ function genF(voca){ // module de génération de fiction
 			}
 			ObjWorld = tableProp(tableDuMonde,r.item.prop,r.item.valeur)[0]; //item du monde trouvé
 			if (ObjWorld === undefined){
-				if (messages){
+				if (me.messages){
 					console.log("mauvais argument entré pour l'évènement "+eventEnCours);
 					infoErreur();
 				}
@@ -566,11 +515,11 @@ function genF(voca){ // module de génération de fiction
 				let res = verifieCondition (c);
 				switch (res){
 					case false:
-						if (messages){
+						if (me.messages){
 							console.log ("la condition de l'évènement n'est pas remplie, l'évènement est avorté");
 						} // pas de break !
 					case null:
-						if (messages){
+						if (me.messages){
 							console.log ("état actuel de l'objet impliqué dans le requirement :");
 							console.log (ObjWorld);
 						}
@@ -623,7 +572,7 @@ function genF(voca){ // module de génération de fiction
 					return(ObjWorld[c.prop].indexOf(c.valeur) >= 0);
 					break;
 				default:
-					if (messages){
+					if (me.messages){
 						console.log ("type non prévu dans le requirements");
 					}
 					return null;
@@ -639,7 +588,7 @@ function genF(voca){ // module de génération de fiction
 					return (tableObjetsRequirement[c.valeur.item][c.valeur[p[1]]]);
 					break;
 				default:
-					if (messages){
+					if (me.messages){
 						console.log ("type de l'objet *valeur* non prévu dans les requirements ou les final states des objets du monde" );
 						console.log("arguments passés à la fonction attribueValeur : args, p, c, itemsReq, itemsFinal : ");
 						console.log(args);
@@ -653,7 +602,7 @@ function genF(voca){ // module de génération de fiction
 		}
 		
 		function infoErreur(){
-			if (messages){
+			if (me.messages){
 				console.log("situation dans le programme : num du requirement , num du final state, évènement, arguments : ");
 				console.log(numReq);
 				console.log(numF);
@@ -669,11 +618,14 @@ function genF(voca){ // module de génération de fiction
 
 	// --------------- fonctions relatives au traitement des données omeka
 	function recup(listeVoca){ // récupère les données omeka d'une liste de vocabulaires
-	
-        let rM = oOmk.getItems(listeVoca); // rM est une liste d'objets, chaque objet est une table du monde de la fiction, la dernière est celle des évènements
-        if (messages) {console.log(rM);}
-	
-		return rM
+        let p = new Promise(resolve => {
+            resolve(me.oOmk.getItems(listeVoca));
+        }).then(function(data){
+            // oOmk.itemsVocab est une liste d'objets, chaque objet est une table du monde de la fiction, la dernière est celle des évènements
+            if (me.messages) {console.log(me.oOmk.itemsVocab);}        
+            return me.oOmk.itemsVocab;
+        });
+
 	}
 
 	function nettoye (rM){
@@ -767,7 +719,7 @@ function genF(voca){ // module de génération de fiction
 		
 		resultat = tableProp(table,"key",nom);
 		if (resultat.length == 0){
-			if (messages){
+			if (me.messages){
 				console.log ("le nom entré : "+nom+" n'est pas une valeur de la propriété *key* de la table suivante :");
 				console.log(table);
 			}
@@ -829,5 +781,7 @@ function genF(voca){ // module de génération de fiction
 		}
 		return false;
 	}
-	*/
+    */    
+       if(me.vocab)me.init(me.vocab);
+    }
 }

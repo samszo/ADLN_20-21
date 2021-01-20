@@ -7,6 +7,7 @@ class omk {
         this.data = params.data ? params.data : {}; 
         this.idVocab = 0;
         this.scenes=[];
+        this.itemsVocab=[];
         var vocab, tables, classes, properties, items=[], omekaQuery=[],divWait
         , propsForOmekaType = {
             'o:ResourceClass':['@id','o:id','o:label','o:term']
@@ -57,12 +58,11 @@ class omk {
                 me.hideWait();               
             });
         }        
-          
-        this.getItems = function (idsVocab) {
+        //récupère les items liés à un vocabulaire  
+        this.getItems = function (idVocab) {
             me.showWait();               
             let result = [];
-            idsVocab.forEach(idV =>{
-                me.init(idV,null,true);
+            Promise.resolve(me.init(idVocab,null,true)).then(function(d){                
                 let rs = [];
                 items.forEach(i=>{
                     //rs.push(getTypeVals(i));
@@ -88,15 +88,18 @@ class omk {
                     return r;
                 });
                 result = result.concat(rs)                
-            })
-            //regroupe les valeurs par class 
-            result = Array.from(d3.group(result, d => d['o:resource_class']));
+            
+                //regroupe les valeurs par class 
+                result = Array.from(d3.group(result, d => d['o:resource_class']));
 
-            me.hideWait();               
-            return result;
+                me.hideWait();
+                me.itemsVocab = result;               
+                return result;
+            });
+            console.log('Attente getItems');
         }
 
-        this.init = function (idVocab, endFct, synchrone) {
+        this.init = function (idVocab, endFct=null, synchrone=false) {
             verifInit();            
             
             me.idVocab = idVocab;
@@ -118,34 +121,36 @@ class omk {
                     items = items.concat(getJsonSynchrone(me.apiUrl+"items?resource_class_id="+d['o:id']));
                 })
             }else{
-                //charges les vocabulaires de la fiction
-                let jsonVocabs = [
-                    d3.json(me.apiUrl+"vocabularies/"+me.idVocab)
-                    , d3.json(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab)
-                    , d3.json(me.apiUrl+"properties?vocabulary_id="+me.idVocab)
-                ];
-
-                Promise.all(jsonVocabs).then(function(values) {
-                    vocab = values[0];
-                    classes = values[1];
-                    properties = values[2];
-                    //récupère les items
-                    let jsonItems = [];
-                    classes.forEach(d => {
-                        jsonItems.push(d3.json(me.apiUrl+"items?resource_class_id="+d['o:id']));
-                    })
-                    Promise.all(jsonItems).then(function(rs) {
-                        rs.forEach(rsItem=>{
-                            items = items.concat(rsItem);
-                        });
-                        me.hideWait();           
-                        if(endFct)endFct();
-                    });
-                });
+                Promise.resolve(getAsyncDataVocab()).then(function(d){     
+                    return items;
+                });           
             }
+        }
 
+        function getAsyncDataVocab(){
+            //charges les vocabulaires de la fiction
+            let jsonVocabs = [
+                d3.json(me.apiUrl+"vocabularies/"+me.idVocab)
+                , d3.json(me.apiUrl+"resource_classes?vocabulary_id="+me.idVocab)
+                , d3.json(me.apiUrl+"properties?vocabulary_id="+me.idVocab)
+            ];
 
-
+            Promise.all(jsonVocabs).then(function(values) {
+                vocab = values[0];
+                classes = values[1];
+                properties = values[2];
+                //récupère les items
+                let jsonItems = [];
+                classes.forEach(d => {
+                    jsonItems.push(d3.json(me.apiUrl+"items?resource_class_id="+d['o:id']));
+                })
+                Promise.all(jsonItems).then(function(rs) {
+                    rs.forEach(rsItem=>{
+                        items = items.concat(rsItem);
+                    });
+                    return items;
+                });
+            });
         }
 
         this.showData = function (idVocab) {
