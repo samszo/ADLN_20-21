@@ -121,49 +121,127 @@
 
         <!-- fenêtre modal pour l'ajout de scenario -->
         <div id='modalAjoutScenarii' class="modal" tabindex="-1">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Ajout d'un scenario pour :<span class='titreMonde' ></span></h5>
+                <h5 class="modal-title">Ajout d'un scénario pour :<span class='titreMonde' ></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                  <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Ajouter une scène</a>
-
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li id='sltEvents' class="nav-item">
-
-
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
-                      </ul>
-                      <form class="d-flex">
-                        <button class="btn btn-outline-success" type="submit">Ajouter</button>
-                      </form>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <div class="mb-3">
+                        <label for="inptScenarNom" class="form-label">Nom du scenario</label>
+                        <input type="text" class="form-control" id="inptScenarNom" placeholder="">
+                      </div>
+                      <div id='alertScenarNom'class="alert alert-warning alert-dismissible fade" role="alert">
+                        Merci de nommer le scenario.
+                      </div>  
+                    </div>
+                    <div class="col-sm">
+                      <div class="mb-3">
+                        <ul id="inptScenarEtatInitial" class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                      </div>
+                      <div id='alertScenarEtatInitial'class="alert alert-warning alert-dismissible fade" role="alert">
+                        Merci de choisir une histoire comme état initale du scenario.
+                      </div>  
                     </div>
                   </div>
-                </nav>
-                            
+                  <div class="row">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                      <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Ajouter une scène</a>
+    
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                          <ul id='navAjoutEvent' class="navbar-nav me-auto mb-2 mb-lg-0">
+                          </ul>
+                          <button id='btnAjoutScene' class="btn btn-outline-success" >Ajouter</button>
+                        </div>
+                      </div>
+                    </nav>
+                    <div id='alertAjoutScene'class="alert alert-warning alert-dismissible fade" role="alert">
+                      Merci de choisir une valeur pour chaque paramètre.
+                    </div>
+                  </div>
+                </div>
 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary">enregistrer le scénario</button>
               </div>
             </div>
           </div>
         </div>
+
+
+<!-- fenêtre modal pour l'ajout d'événement -->
+<div id='modalAjoutEvent' class="modal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajout d'un événement pour :<span class='titreMonde' ></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                <label for="inptEventNom" class="form-label">Nom de l'événement</label>
+                <input type="text" class="form-control" id="inptEventNom" placeholder="">
+              </div>
+              <div id='alertEventNom'class="alert alert-warning alert-dismissible fade" role="alert">
+                Merci de nommer l'événement.
+              </div>  
+              <div class="mb-3">
+                <label for="inptEventDesc" class="form-label">Description de l'événement</label>
+                <input type="text" class="form-control" id="inptEventDesc" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <ul id="inptEventType" class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+              </div>
+              <div id='alertEventType'class="alert alert-warning alert-dismissible fade" role="alert">
+                Merci de choisir un type d'événement.
+              </div>  
+            </div>
+          </div>
+          <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#">Ajouter une exigence</a>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                  <ul id='navAjoutRequirement' class="navbar-nav me-auto mb-2 mb-lg-0">
+                  </ul>
+                  <button id='btnAjoutRequirement' class="btn btn-outline-success" >Ajouter</button>
+                </div>
+              </div>
+            </nav>
+            <div id='alertAjoutRequirement'class="alert alert-warning alert-dismissible fade" role="alert">
+              Merci de choisir une valeur pour chaque paramètre.
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">enregistrer l'événement'</button>
+      </div>
+    </div>
+  </div>
+</div>        
+
     <!-- Fenêtre modale pour l'affichae choix d'un fichier -->
     <div class="modal fade" id="modGetFic" tabindex="-1" role="dialog" aria-labelledby="modGetFicLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -195,7 +273,13 @@
         let gen = new fictionGene({}), manu = new fictionManutention(gen)
         , modalAjoutScenar = new bootstrap.Modal(document.getElementById('modalAjoutScenarii'),{keyboard: true})
         , modalImportMonde = new bootstrap.Modal(document.getElementById('modGetFic'),{keyboard: true})
-        ;
+        , modalAjoutEvent  = new bootstrap.Modal(document.getElementById('modalAjoutEvent'),{keyboard: true})
+        , slctEvent = false, slctParams = [], slctEtatInitial=false
+        , alertList = document.querySelectorAll('.alert');
+        alertList.forEach(function (alert) {
+            new bootstrap.Alert(alert)
+          });
+
         //initialisation de la liste des mondes
         gen.oOmk.getListeMonde(afficheListeMondes);
 
@@ -218,6 +302,7 @@
                     }
                 }
             })
+        d3.select('#btnAjoutScene').on('click',function(){ajouterScene();});  
 
 
         function afficheListeMondes(data){
@@ -252,11 +337,43 @@
           //affiche le menu du monde
           manu.afficheMenuMonde('#mnuMonde',{'clickCard':choixLegende});
           chargeMenu();
-          manu.setAutoComplete('sltEvents',afficheEvent);
+          manu.setAutoComplete('Choisir un événement','navAjoutEvent',afficheEvent,manu.dataEvents,'Title','nav-item lstEvent');
+          manu.setAutoComplete('Choisir une histoire initiale','inptScenarEtatInitial',selectScenarEtatInitial,manu.dataStory,'Title','nav-item lstStory');
+          d3.select("#alertAjoutScene").attr('class','alert alert-warning alert-dismissible fade');
+          d3.select("#alertScenarEtatInitial").attr('class','alert alert-warning alert-dismissible fade');
+          
         }
 
         function afficheEvent(item){
-          console.log(item);
+          slctEvent = item;
+          //suprime les ancien paramètres
+          let cls = "nav-item paramEvent";
+          d3.selectAll('.paramEvent').remove();
+          slctParams=[];
+          d3.select("#alertAjoutScene").attr('class','alert alert-warning alert-dismissible fade');
+          d3.select("#alertScenarEtatInitial").attr('class','alert alert-warning alert-dismissible fade');
+
+          
+          //ajoute les paramètres de l'événement sous la forme d'une liste
+          if(Array.isArray(slctEvent.Parameters)){
+            slctEvent.Parameters.forEach((p,i)=>{
+              let dt = manu.dataMonde.filter(m=>m.type==slctEvent.tablesParameters[i]);
+              manu.setAutoComplete(p,'navAjoutEvent',selectParam,dt,cls);
+            });
+          }else{
+            let dt = manu.dataMonde.filter(m=>m.type==slctEvent.tablesParameters);
+            manu.setAutoComplete(slctEvent.Parametersx,'navAjoutEvent',selectParam,dt,cls);
+          }
+        }
+
+        function selectParam(item){
+          slctParams.push(item);
+          d3.select("#alertAjoutScene").attr('class','alert alert-warning alert-dismissible fade');
+        }
+
+        function selectScenarEtatInitial(item){
+          slctEtatInitial=item;
+          d3.select("#alertScenarEtatInitial").attr('class','alert alert-warning alert-dismissible fade');
         }
 
         function afficheEtatInitial(d) {
@@ -268,9 +385,38 @@
           //affiche les événements
           manu.afficheEventsCartes(['#omk','#navFiltres'],{'clickCard':choixLegende});
         }	
-        function ajouterScenarii(d){
+        function ajouterEvent(d){
+          modalAjoutEvent.show();
+        }
+
+        function ajouterScenario(d){
           console.log(d);
           modalAjoutScenar.show();
+        }
+        function ajouterScene(){
+          //vérification des données du formulaire
+          if(!slctEvent || !slctParams.length){
+            d3.select("#alertAjoutScene").attr('class','alert alert-warning alert-dismissible fade show');
+            return;
+          }
+          if(!slctEtatInitial){
+            d3.select("#alertScenarEtatInitial").attr('class','alert alert-warning alert-dismissible fade show');
+            return;
+          }
+
+          if(slctEvent.type=='pg'){
+            console.log(slctEvent);
+          }else{
+            //construction de l'événement avec les paramètres choisis
+            let pEvent = [];
+            pEvent.push(slctEvent.function);
+            slctParams.forEach(p=>pEvent.push(p.nom));
+            //vérification de la cohérence de l'évenement par rapport à l'état du monde
+            let eventStat = gen.verifieReq(pEvent);
+            console.log("vérification de l'événement="+eventStat);
+          }           
+          //création de la description de la scene
+
         }
 
         function choixLegende(e,d){

@@ -11,7 +11,25 @@
             "name": "Evènements",
             "color": "yellow",
             "size": 1,
-            "fct": "afficheEvents"
+            "fct": "afficheEvents",
+            "children": [{
+                "name": "Ajouter",
+                "color": "red",
+                "size": 1,
+                "fct": "ajouterEvent"
+            }]
+        },
+        {
+            "name": "Histoires",
+            "color": "yellow",
+            "size": 1,
+            "children": [{
+                "name": "Ajouter",
+                "color": "red",
+                "size": 1,
+                "fct": "ajouterHistoire"
+            }
+            ]    
         },
         {
             "name": "Scenarii",
@@ -21,7 +39,7 @@
                 "name": "Ajouter",
                 "color": "red",
                 "size": 1,
-                "fct": "ajouterScenarii"
+                "fct": "ajouterScenario"
             }
             ]    
         }

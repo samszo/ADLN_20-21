@@ -134,8 +134,11 @@ class menuSunburst {
                 case 'afficheEvents':
                   afficheEvents(p)
                   break;
-                case 'ajouterScenarii':
-                  ajouterScenarii(p);
+                case 'ajouterScenario':
+                  ajouterScenario(p);
+                  break;
+                case 'ajouterEvent':
+                  ajouterEvent(p);
                   break;
                 default:
                   p.data.fct(p);

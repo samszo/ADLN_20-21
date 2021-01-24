@@ -3,24 +3,29 @@ class fictionManutention {
         var me = this;
         this.titreMonde = "";
         this.gen = gen;
-        let svg, global, margin=6, dataMonde, dataEvents, dataFiltre, dataStory, keyType, noMedia='asset/svg/wait-pacman.svg'
+        this.dataMonde;
+        this.dataEvents;
+        this.dataFiltre; 
+        this.dataStory;
+        let svg, global, margin=6, keyType, noMedia='asset/svg/wait-pacman.svg'
         ,color = d3.scaleSequential().interpolator(d3.interpolateWarm)
         ,searchTerm;
 
         this.init = function(){
-            dataMonde = getLigneMonde(me.gen.Monde);
-            dataEvents = me.gen.Evt;
-            dataStory = me.gen.Story;
+            me.dataMonde = getLigneMonde(me.gen.Monde);
+            me.dataEvents = me.gen.Evt;
+            //s'il n'ya pas d'histoire on initialise avec l'état initial
+            me.dataStory = me.gen.Story.length ? me.gen.Story : [{'Title':'Etat inital','data':me.gen.Monde}];
             //récupère les type d'objets
-            dataFiltre = getDataFiltre(dataMonde.concat(dataEvents));
+            me.dataFiltre = getDataFiltre(me.dataMonde.concat(me.dataEvents));
             setColors();
         }
 
         function setColors(){
             //définition de la fonction de colorisation
-            color.domain([0,dataFiltre.length]);
+            color.domain([0,me.dataFiltre.length]);
             keyType = [];
-            dataFiltre.forEach((f,i) => {keyType[f.text]=i});            
+            me.dataFiltre.forEach((f,i) => {keyType[f.text]=i});            
         }
 
         function getDataFiltre(data){
@@ -115,9 +120,9 @@ class fictionManutention {
                 .append('div').attr('class','row row-cols-1 row-cols-md-3 d-flex align-items-stretch');
                 
             //création d'une card pour chaque event
-            if(!dataEvents)dataEvents = me.gen.getEvents();
+            if(!me.dataEvents)me.dataEvents = me.gen.getEvents();
 
-            let oe = lstOE.selectAll('div').data(dataEvents).enter().append('div')
+            let oe = lstOE.selectAll('div').data(me.dataEvents).enter().append('div')
                 .attr('id',(d,i)=>'oe'+d.id)
                 .attr('class','col')
                 .append('div').attr('class','card')
@@ -161,7 +166,7 @@ class fictionManutention {
                 .append('small').attr('class',"muted-footer")
                 .text(d=>d.Title);//{let x = new Date();return 'Généré le : '+x.toString();});
 
-            me.afficheFiltres(q[1],dataEvents,fcts);
+            me.afficheFiltres(q[1],me.dataEvents,fcts);
                 
         }
 
@@ -176,9 +181,9 @@ class fictionManutention {
                 .append('div').attr('class','row row-cols-1 row-cols-md-6 g-4');
             //création d'une card pour chaque objet
 
-            if(!dataMonde)dataMonde = getLigneMonde(me.gen.getMonde());
+            if(!me.dataMonde)me.dataMonde = getLigneMonde(me.gen.getMonde());
 
-            let oem = lstOEM.selectAll('div').data(dataMonde).enter().append('div')
+            let oem = lstOEM.selectAll('div').data(me.dataMonde).enter().append('div')
                 .attr('id',(d,i)=>'oem'+d.id)
                 .attr('class','col')
                 .append('div').attr('class','card h-100')
@@ -224,7 +229,7 @@ class fictionManutention {
                 .append('small').attr('class',"muted-footer")
                 .text(d=>d.Title);//{let x = new Date();return 'Généré le : '+x.toString();});
 
-            me.afficheFiltres(q[1],dataMonde,fcts);
+            me.afficheFiltres(q[1],me.dataMonde,fcts);
 
         }
 
@@ -235,8 +240,8 @@ class fictionManutention {
                 .append('ul').attr('class','navbar-nav').attr('id','navFiltresList')
                 ;//.append('div').attr('class','row row-cols-1 row-cols-md-3 g-4');
             //création des boutons
-            dataFiltre = getDataFiltre(data);            
-            let lstBtn = lst.selectAll('li').data(dataFiltre).enter().append('li').attr('class',"nav-item dropdown")
+            me.dataFiltre = getDataFiltre(data);            
+            let lstBtn = lst.selectAll('li').data(me.dataFiltre).enter().append('li').attr('class',"nav-item dropdown")
                 .append('div').attr('class',"btn-group");
             lstBtn.append('button').attr('class',"btn").attr('type',"button")
                 .style('background-color',d=>d.color)
@@ -378,30 +383,28 @@ class fictionManutention {
 
         }
         /*Pour gérer l'autocomplétion
-        ajouter nécessairement :
-        jquery-ui.js
-        jquery-ui.css
         */
-        this.setAutoComplete = function (idCont, fct){
+        this.setAutoComplete = function (titre, idCont, fct, dt, prop, cls){
 
             let cont = d3.select('#'+idCont);
-            cont.append('label').attr('for',"ac"+idCont).attr('class',"form-label").text('Sélectionner un élément');
-            cont.append('input').attr('class',"form-control").attr('list',"dl"+idCont)
-                .attr('id',"ac"+idCont).attr('placeholder','saisir...')
+            let nbAC = document.querySelectorAll("#"+idCont+" li").length;
+            let idLi = cls+"_"+nbAC+"_"+idCont
+            let li = cont.append('li').attr('class',cls).attr('id',idLi);
+            li.append('label').attr('for',"ac"+idLi).attr('class',"form-label").text(titre);
+            li.append('input').attr('class',"form-control").attr('list',"dl"+idLi)
+                .attr('id',"ac"+idLi).attr('placeholder','saisir...')
                 .on('change',function() {
-                    fct(this.value);
+                    let slt = dt.filter(e=>e[prop]==this.value);
+                    fct(slt[0]);
                   });
-            cont.append('datalist').attr('id',"dl"+idCont)
-                .selectAll('option').data(idCont == 'sltEvents' ? dataEvents : dataMonde).enter().append('option')
-                .attr('value',d=>d.Title)
-                .on('click',d=>{
-                    fct(d);
-                });
+            li.append('datalist').attr('id',"dl"+idLi)
+                .selectAll('option').data(dt).enter().append('option')
+                .attr('value',d=>d[prop]);
         }
 
         this.exporterMonde = function(){
             const filename = me.titreMonde+'.json';
-            const jsonStr = JSON.stringify({'titre':me.titreMonde,'monde':me.gen.Monde,'events':me.gen.Evt,'story':dataStory});
+            const jsonStr = JSON.stringify({'titre':me.titreMonde,'monde':me.gen.Monde,'events':me.gen.Evt,'story':me.dataStory});
             
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
@@ -415,7 +418,7 @@ class fictionManutention {
         this.importerMonde = function(json){
             me.gen.Monde=json.monde;
             me.gen.Evt=json.events
-            dataStory=json.story;
+            me.dataStory=json.story;
             me.titreMonde = json.titre;
             me.init();
         }
